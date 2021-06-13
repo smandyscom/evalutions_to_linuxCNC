@@ -1,0 +1,14 @@
+M64 P0
+(trigger external devices to work, i.e Vision capture)
+
+M66 P0 L3 Q600 (wait up to 600 seconds for digital input 0 to turn on)
+(debug, received ACK, execute further motion tasks....)
+
+#<value> = #<_hal[passthrough.in]> (read some values from USERSPACE, i.e vision_coordinate.x, or compensation.x)
+
+M65 P0 (off the trigger)
+
+M66 P0 L4 Q600 (await ACK off)
+
+
+M2 (end of sequence)

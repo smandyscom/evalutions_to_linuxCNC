@@ -1,0 +1,12 @@
+o100 if [EXISTS[#<_hal[motion-controller.time]>]]
+  (debug, [motion-controller.time] exists: #<_hal[motion-controller.time]>)
+o100 else
+  (debug, [motion-controller.time] does not exist)
+o100 endif
+
+(debug, #<_hal[base-thread.tmax]>)
+(debug, <_hal[passthrough.in]#<_hal[passthrough.in]>)
+
+M68 E0 Q255 (set Analog out Pin-00 , value 255)
+M100 (Excute external program M100)
+M2
