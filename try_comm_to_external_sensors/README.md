@@ -50,3 +50,28 @@ Also can refer to [Motion](http://linuxcnc.org/docs/2.8/html/config/core-compone
     except KeyboardInterrupt:
         raise SystemExit
    ```
+
+## Demo of Visual Alignment System
+
+### Techniques
+
+- [] Qt Designer to draw UI frame
+
+### Infra
+
+Interconnected LinuxCNC with External Vision System.
+By assiting of vision system, the local coordiante (G54?) can be aligned with real where the workpiece is.  
+Pixel point and angle from vision system should be transformed to be represented in mechanical system before being applied in compensation. To do so, the Transformation matrix should be build up in Calibration phase.
+
+Transformation matrix and relevent calculations is maintained at external side since implementation on Python is relativly easier than G-code parser.
+
+- A table to store 9 points pairs to represent the linkage of mechanical system and vision.
+
+- A channel consisted following facilities per external vision. All of them build on linuxCNC side.
+   1. 3 float out from linuxCNC to external vision. To send X,Y,$\theta$ of mech sys as current position.
+      - ? Any present facilite?
+   2. 3 float in from external vision to linuxCNC.To receive X,Y,$\theta$
+   3. A flag set consisted
+      - 1 digital IN from linuxCNC to external. As TRIGGER.
+      - 1 digital OUT from external to linuxCNC. As ACK. 
+
