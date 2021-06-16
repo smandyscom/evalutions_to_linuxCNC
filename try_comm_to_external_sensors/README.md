@@ -56,6 +56,7 @@ Also can refer to [Motion](http://linuxcnc.org/docs/2.8/html/config/core-compone
 ### Techniques
 
 - [] Qt Designer to draw UI frame
+   - [Qt Designer and Python: Build Your GUI Applications Faster](https://realpython.com/qt-designer-python/#integrating-windows-and-dialogs-in-an-application)
 
 ### Infra
 
@@ -73,5 +74,6 @@ Transformation matrix and relevent calculations is maintained at external side s
    2. 3 float in from external vision to linuxCNC.To receive X,Y,$\theta$
    3. A flag set consisted
       - 1 digital IN from linuxCNC to external. As TRIGGER.
-      - 1 digital OUT from external to linuxCNC. As ACK. 
+      - 1 digital OUT from external to linuxCNC. As ACK.
+    4. A INTEGER to be choosen as MODE, to update Matrix or Operation Calculating.
 
