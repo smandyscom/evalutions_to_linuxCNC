@@ -76,4 +76,5 @@ Transformation matrix and relevent calculations is maintained at external side s
       - 1 digital IN from linuxCNC to external. As TRIGGER.
       - 1 digital OUT from external to linuxCNC. As ACK.
     4. A INTEGER to be choosen as MODE, to update Matrix or Operation Calculating.
+    5. A INTEGER to indicate which index of calibration point is written into TABLE.
 
