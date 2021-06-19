@@ -57,6 +57,10 @@ Also can refer to [Motion](http://linuxcnc.org/docs/2.8/html/config/core-compone
 
 - [] Qt Designer to draw UI frame
    - [Qt Designer and Python: Build Your GUI Applications Faster](https://realpython.com/qt-designer-python/#integrating-windows-and-dialogs-in-an-application)
+   - Parse .ui file to generate .py code
+   ```bash
+   $ pyuic5 -o main_window_ui.py ui/main_window.ui
+   ```
 
 ### Infra
 
