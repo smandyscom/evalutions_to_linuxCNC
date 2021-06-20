@@ -53,6 +53,7 @@ class Controller(QObject):
         for index in range(len(self.updateCurrentPostions)):
             self.updateCurrentPostions[index].updatePost.emit(str(current_mach_pos[index]))
         self.updatePosIndex.emit(str(self.__interface__.read_pos_index()))
+        self.updateTriggerSignal.emit(self.__interface__.read_trigger())
 
     #event handler to QTimer
     def onTimerTimeout_run_handshake(self):

@@ -39,6 +39,8 @@ class Window(QMainWindow):
         
         self.__controler.updatePosIndex.connect(self.main_widget.label_POS_INDEX.setText)
         self.__controler.tableWidget= self.main_widget.tableWidget
+
+        self.__controler.updateTriggerSignal.connect(self.main_widget.label_TRIGGERD.onStateChanged)
         
         self.main_widget.pushButton_ACK.clicked.connect(self.__controler.onButtonAckClicked)
 

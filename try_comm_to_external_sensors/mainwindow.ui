@@ -335,7 +335,7 @@
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="label_TRIGGERD">
+          <widget class="QLabelLed" name="label_TRIGGERD">
            <property name="text">
             <string>TRIGGERED</string>
            </property>
@@ -387,6 +387,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QLabelLed</class>
+   <extends>QLabel</extends>
+   <header>qlabelled.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
