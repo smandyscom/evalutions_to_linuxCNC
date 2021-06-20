@@ -9,7 +9,7 @@ import typing
 
 from PyQt5.QtCore import qAbs 
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QWidget
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget
 from PyQt5.uic import loadUi
 
 from mainwindow_ui import Ui_MainWindow
@@ -19,6 +19,9 @@ class Window(QMainWindow,Ui_MainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
         self.setupUi(self)
+
+        self.tableWidget.setItem(0,0,QTableWidgetItem('hello'))
+        pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
