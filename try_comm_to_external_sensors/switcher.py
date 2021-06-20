@@ -1,5 +1,6 @@
 import importlib
 from importlib.util import find_spec
+from random import random
 
 dummy_io_trigger = bool()
 dummy_io_acknowledge = bool()
@@ -31,5 +32,13 @@ class Swither(object):
             import hal, linuxcnc
             #change read/write function to connect linuxCNC
             pass
+        pass
+    
+    def dice_values(self):
+        global dummy_pos_current_mach
+
+        for pos in dummy_pos_current_mach:
+            pos = random()*1000
+
         pass
     pass

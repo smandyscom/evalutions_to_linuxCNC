@@ -1,5 +1,5 @@
 import typing
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import QObject, pyqtSignal, QTimer
 from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 
 
@@ -7,19 +7,45 @@ from random import random
 
 from switcher import Swither
 
+
+class SignalCarrier(QObject):
+    updatePost  = pyqtSignal(str)
+
 class Controller(QObject):
+
+    #Signals to update UI (Need to shared among instances?)
+    '''updateCurrentPostions = [pyqtSignal(str)]*3 #wrong way'''
+    updateCurrentPostions = [SignalCarrier()]*3
+    updateTriggerSignal = pyqtSignal(bool) #QLabel should be promoted to have corrsponding slot
+    updatePosIndex = pyqtSignal(str)
+
     def __init__(self, parent: typing.Optional['QObject']) -> None:
         super().__init__(parent=parent)
 
         self.__interface__ = Swither()
         self.__state__ = 0
 
-        self.tableWidget=QTableWidget(self) #dummy one, need to be linked
-        
-        #Signals to update UI
-        self.updateCurrentPostions = [pyqtSignal(str)]*3
-        self.updateTriggerSignal = pyqtSignal(bool)
+        self.tableWidget=QTableWidget() #dummy one, need to be linked
 
+        #Timer to update/run sequence
+        self.qTimer = QTimer(parent=self)
+        self.qTimer.timeout.connect(self.onTimerTimeout_run_handshake)
+        self.qTimer.timeout.connect(self.onTimerTimeout_dice_values)
+        self.qTimer.setInterval(100)
+        self.qTimer.start()
+
+        
+        
+        
+
+        #Slot to received changes from UI
+
+        pass
+
+    def onTimerTimeout_dice_values(self):
+        self.__interface__.dice_values()
+        for signal in self.updateCurrentPostions:
+            signal.updatePost.emit(str(random())) # TODO , need to be linked interface
         pass
 
     def onTimerTimeout_update_ui(self):
