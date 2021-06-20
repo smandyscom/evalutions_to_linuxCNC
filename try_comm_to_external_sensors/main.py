@@ -27,7 +27,7 @@ class Window(QMainWindow):
 
         #self.setupUi(self) # statical way to load .ui file, have to use pyuic.exe to generate ui.py first
 
-        self.main_widget.tableWidget.setItem(0,0,QTableWidgetItem('hello'))
+        #self.main_widget.tableWidget.setItem(0,0,QTableWidgetItem('hello'))
 
         #Mount controller
         self.__controler = Controller(parent=self)
@@ -36,6 +36,11 @@ class Window(QMainWindow):
         self.__controler.updateCurrentPostions[0].updatePost.connect(self.main_widget.lineEdit_CP_MACH_X.setText)
         self.__controler.updateCurrentPostions[1].updatePost.connect(self.main_widget.lineEdit_CP_MACH_Y.setText)
         self.__controler.updateCurrentPostions[2].updatePost.connect(self.main_widget.lineEdit_CP_MACH_THETA.setText)
+        
+        self.__controler.updatePosIndex.connect(self.main_widget.label_POS_INDEX.setText)
+        self.__controler.tableWidget= self.main_widget.tableWidget
+        
+        self.main_widget.pushButton_ACK.clicked.connect(self.__controler.onButtonAckClicked)
 
         pass
 

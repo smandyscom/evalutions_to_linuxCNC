@@ -1,5 +1,5 @@
 import typing
-from PyQt5.QtCore import QObject, pyqtSignal, QTimer
+from PyQt5.QtCore import QObject, pyqtSignal, QTimer, pyqtSlot
 from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 
 
@@ -31,42 +31,45 @@ class Controller(QObject):
         self.qTimer = QTimer(parent=self)
         self.qTimer.timeout.connect(self.onTimerTimeout_run_handshake)
         self.qTimer.timeout.connect(self.onTimerTimeout_dice_values)
+        self.qTimer.timeout.connect(self.onTimerTimeout_update_ui)
         self.qTimer.setInterval(100)
         self.qTimer.start()
-
-        
-        
-        
 
         #Slot to received changes from UI
 
         pass
 
+    @pyqtSlot()
+    def onButtonAckClicked(self):
+        self.__interface__.write_acknowledge(not self.__interface__.read_ackowledge()) # flip the signal
+        pass
+
     def onTimerTimeout_dice_values(self):
         self.__interface__.dice_values()
-        for signal in self.updateCurrentPostions:
-            signal.updatePost.emit(str(random())) # TODO , need to be linked interface
         pass
 
     def onTimerTimeout_update_ui(self):
-        pass
+        current_mach_pos = self.__interface__.read_pos_current_mach()
+        for index in range(len(self.updateCurrentPostions)):
+            self.updateCurrentPostions[index].updatePost.emit(str(current_mach_pos[index]))
+        self.updatePosIndex.emit(str(self.__interface__.read_pos_index()))
 
     #event handler to QTimer
     def onTimerTimeout_run_handshake(self):
         if self.__state__ == 0 and self.__interface__.read_trigger():
             self.__state__ = 100
 
-        elif self.__state__ == 100:
+        elif self.__state__ == 100 and self.__interface__.read_ackowledge():
             pos_index = self.__interface__.read_pos_index() #read from CNC
             if pos_index == -1:
                 pass
             else:
-                self.onTriggerToCalibration(self,pos_index)
+                self.onTriggerToCalibration(pos_index)
 
-            self.__interface__.write_acknowledge(True)
+            #self.__interface__.write_acknowledge(True)
             self.__state__ = 200
 
-        elif self.__state__ == 200 and self.__interface__.read_trigger==False:
+        elif self.__state__ == 200 and self.__interface__.read_trigger()==False:
             self.__interface__.write_acknowledge(False)
             self.__state__ = 0 # to await signal rewind
         pass
@@ -76,13 +79,13 @@ class Controller(QObject):
         #To change model?
         mach_positions = self.__interface__.read_pos_current_mach()
 
-        for i in range(0,2):
-            self.tableWidget.setItem(pos_index,i,QTableWidgetItem(mach_positions[i]))
+        for i in range(len(mach_positions)):
+            self.tableWidget.setItem(pos_index,i,QTableWidgetItem(str(mach_positions[i])))
 
         #Simulation to TRIGGER Vision capture process
         vision_positions = [x+random() for x in mach_positions ]
 
-        for i in range(3,5):
-            self.tableWidget.setItem(pos_index,i,QTableWidgetItem(vision_positions[i]))
+        for i in range(len(vision_positions)):
+            self.tableWidget.setItem(pos_index,i+3,QTableWidgetItem(str(vision_positions[i])))
 
         pass
