@@ -15,7 +15,10 @@ class Controller(QObject):
 
     #Signals to update UI (Need to shared among instances?)
     '''updateCurrentPostions = [pyqtSignal(str)]*3 #wrong way'''
-    updateCurrentPostions = [SignalCarrier()]*3
+    updateCurrentPositions = [SignalCarrier()]*3
+    updateVisionPositions = [SignalCarrier()]*3
+    updateCalculatedPositions = [SignalCarrier()]*3
+
     updateTriggerSignal = pyqtSignal(bool) #QLabel should be promoted to have corrsponding slot
     updatePosIndex = pyqtSignal(str)
 
@@ -49,11 +52,12 @@ class Controller(QObject):
         pass
 
     def onTimerTimeout_update_ui(self):
-        current_mach_pos = self.__interface__.read_pos_current_mach()
-        for index in range(len(self.updateCurrentPostions)):
-            self.updateCurrentPostions[index].updatePost.emit(str(current_mach_pos[index]))
+        self.__mach_positions = self.__interface__.read_pos_current_mach()
+        for index in range(len(self.updateCurrentPositions)):
+            self.updateCurrentPositions[index].updatePost.emit(str(self.__mach_positions[index]))
         self.updatePosIndex.emit(str(self.__interface__.read_pos_index()))
         self.updateTriggerSignal.emit(self.__interface__.read_trigger())
+        
 
     #event handler to QTimer
     def onTimerTimeout_run_handshake(self):
@@ -63,7 +67,7 @@ class Controller(QObject):
         elif self.__state__ == 100 and self.__interface__.read_ackowledge():
             pos_index = self.__interface__.read_pos_index() #read from CNC
             if pos_index == -1:
-                pass
+                self.onTriggerToOperation()
             else:
                 self.onTriggerToCalibration(pos_index)
 
@@ -78,15 +82,34 @@ class Controller(QObject):
     def onTriggerToCalibration(self,pos_index=0):
         #when received pos_index from 0-8
         #To change model?
-        mach_positions = self.__interface__.read_pos_current_mach()
+        self.__mach_positions = self.__interface__.read_pos_current_mach()
 
-        for i in range(len(mach_positions)):
-            self.tableWidget.setItem(pos_index,i,QTableWidgetItem(str(mach_positions[i])))
+        for i in range(len(self.__mach_positions)):
+            self.tableWidget.setItem(pos_index,i,QTableWidgetItem(str(self.__mach_positions[i])))
 
         #Simulation to TRIGGER Vision capture process
-        vision_positions = [x+random() for x in mach_positions ]
+        self.onSimuTriggerVision(self.__mach_positions)
+        for i in range(len(self.__vision_positions)):
+            self.tableWidget.setItem(pos_index,i+3,QTableWidgetItem(str(self.__vision_positions[i])))
 
-        for i in range(len(vision_positions)):
-            self.tableWidget.setItem(pos_index,i+3,QTableWidgetItem(str(vision_positions[i])))
+        pass
 
+    def onTriggerToOperation(self):
+        self.__mach_positions = self.__interface__.read_pos_current_mach()
+        self.onSimuTriggerVision()
+        self.onSimuTriggerCalculated()
+        pass
+
+    def onSimuTriggerVision(self):
+        self.__vision_positions = [x+random() for x in self.__mach_positions]
+        #TO update Vision Position
+        for index in range(len(self.updateVisionPositions)):
+            self.updateVisionPositions[index].updatePost.emit(str(self.__vision_positions[index]))
+        pass
+
+    def onSimuTriggerCalculated(self):
+        self.__calculated = [x+random() for x in self.__vision_positions]
+        #TO update Calculated Position
+        for index in range(len(self.updateCalculatedPositions)):
+            self.updateCalculatedPositions[index].updatePost.emit(str(self.__calculated[index]))
         pass

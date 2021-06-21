@@ -33,14 +33,23 @@ class Window(QMainWindow):
         self.__controler = Controller(parent=self)
         self.__controler.updatePosIndex.connect(self.main_widget.label_POS_INDEX.setText)
 
-        self.__controler.updateCurrentPostions[0].updatePost.connect(self.main_widget.lineEdit_CP_MACH_X.setText)
-        self.__controler.updateCurrentPostions[1].updatePost.connect(self.main_widget.lineEdit_CP_MACH_Y.setText)
-        self.__controler.updateCurrentPostions[2].updatePost.connect(self.main_widget.lineEdit_CP_MACH_THETA.setText)
+        self.__controler.updateCurrentPositions[0].updatePost.connect(self.main_widget.lineEdit_CP_MACH_X.setText)
+        self.__controler.updateCurrentPositions[1].updatePost.connect(self.main_widget.lineEdit_CP_MACH_Y.setText)
+        self.__controler.updateCurrentPositions[2].updatePost.connect(self.main_widget.lineEdit_CP_MACH_THETA.setText)
+        
+        self.__controler.updateVisionPositions[0].updatePost.connect(self.main_widget.lineEdit_CP_VI_X.setText)
+        self.__controler.updateVisionPositions[1].updatePost.connect(self.main_widget.lineEdit_CP_VI_Y.setText)
+        self.__controler.updateVisionPositions[2].updatePost.connect(self.main_widget.lineEdit_CP_VI_THETA.setText)
+        
+        self.__controler.updateCalculatedPositions[0].updatePost.connect(self.main_widget.lineEdit_CP_CAL_X.setText)
+        self.__controler.updateCalculatedPositions[1].updatePost.connect(self.main_widget.lineEdit_CP_CAL_Y.setText)
+        self.__controler.updateCalculatedPositions[2].updatePost.connect(self.main_widget.lineEdit_CP_CAL_THETA.setText)
         
         self.__controler.updatePosIndex.connect(self.main_widget.label_POS_INDEX.setText)
         self.__controler.tableWidget= self.main_widget.tableWidget
 
         self.__controler.updateTriggerSignal.connect(self.main_widget.label_TRIGGERD.onStateChanged)
+        self.__controler.updateTriggerSignal.connect(self.main_widget.pushButton_ACK.setEnabled)
         
         self.main_widget.pushButton_ACK.clicked.connect(self.__controler.onButtonAckClicked)
 
