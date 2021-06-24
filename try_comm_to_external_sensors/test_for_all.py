@@ -10,15 +10,12 @@ def test_dummy_echo():
     pass
 
 def test_channel():
-    cwd = getcwd()
-    path.append(r'.\try_comm_to_external_sensors')
-
     instance = Swither()
     channel = instance.create_channel('hal_gate_py27','dummy_echo',python_version='')
 
     for x in range(0,10):
         puz = random()
-        channel.send([str(puz)])
+        channel.send([str(puz)]) #need to embrace arguments by a list
         recv = channel.receive()
         assert  str(puz) == recv
     pass

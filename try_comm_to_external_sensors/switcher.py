@@ -53,8 +53,6 @@ class Swither(object):
         #'https://stackoverflow.com/questions/27863832/calling-python-2-script-from-python-3'
         gateway = makegateway('popen//python=python{}'.format(python_version))
         channel = gateway.remote_exec("""
-                from sys import path
-                path.append(r'.\try_comm_to_external_sensors')
                 from {} import {} as the_function
                 while True:
                     channel.send(the_function(*channel.receive()))
