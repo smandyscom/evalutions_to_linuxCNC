@@ -18,7 +18,7 @@ if __is_hal_existed :
         return hal.get_value(pin_name)
         
     def hal_set_value(pin_name,value):
-        return hal.set_p(pin_name,value)
+        return hal.set_p(pin_name,str(value)) # write value must be string
 
 def dummy_echo(arg):
     return arg
@@ -28,6 +28,8 @@ def is_hal_existed():
 
 
 if __name__ == '__main__':
+    from random import random
     value = hal_read_value('joint.0.pos-fb')
+    hal_set_value('motion.analog-in-00',random())
     instanized_comp.exit() # this will kill components
     pass
