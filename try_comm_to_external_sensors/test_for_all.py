@@ -20,6 +20,17 @@ def test_channel():
         assert  str(puz) == recv
     pass
 
+def test_channel_hal_py27():
+    instance = Swither()
+    channel = instance.create_channel('hal_gate_py27','hal_read_value',python_version='2.7')
+
+    for x in range(0,10):
+        pin_name = 'joint.0.pos-fb' 
+        channel.send([str(pin_name)]) #need to embrace arguments by a list
+        recv = channel.receive()
+    pass
+
+
 def test_channel_is_hal_existed():
     instance = Swither()
     pass

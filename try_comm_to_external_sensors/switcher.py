@@ -25,8 +25,8 @@ class Swither(object):
 
         if self.is_hal_existed() :
             
-            self.hal_channel_read = self.create_channel('hal_gate_py27','hal_read_value')
-            self.hal_channel_write = self.create_channel('hal_gate_py27', 'hal_set_value')
+            self.hal_channel_read = self.create_channel('hal_gate_py27','hal_read_value',python_version='2.7')
+            self.hal_channel_write = self.create_channel('hal_gate_py27', 'hal_set_value',python_version='2.7')
 
             #change read/write function to connect linuxCNC
             self.read_trigger = lambda : self.hal_read_pin('')
@@ -70,7 +70,7 @@ class Swither(object):
     def is_hal_existed(self):
         #check from python 2.y if hal existed
         channel = self.create_channel('hal_gate_py27','is_hal_existed',python_version='2.7', selection='one_shot')
-        channel.send()
+        channel.send([])
         return bool(channel.receive())
 
     def hal_read_pin(self,pin_name):
