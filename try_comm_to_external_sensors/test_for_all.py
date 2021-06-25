@@ -19,3 +19,7 @@ def test_channel():
         recv = channel.receive()
         assert  str(puz) == recv
     pass
+
+def test_channel_is_hal_existed():
+    instance = Swither()
+    pass
