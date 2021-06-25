@@ -29,13 +29,13 @@ class Swither(object):
             self.hal_channel_write = self.create_channel('hal_gate_py27', 'hal_set_value',python_version='2.7')
 
             #change read/write function to connect linuxCNC
-            self.read_trigger = lambda : self.hal_read_pin('')
-            self.read_pos_index = lambda : self.hal_read_pin('')
-            self.write_acknowledge = lambda value: self.hal_write_pin('',value)
-            self.read_ackowledge = lambda : self.hal_read_pin('')
+            self.read_trigger = lambda : self.hal_read_pin('motion.digital-out-00')
+            self.read_pos_index = lambda : self.hal_read_pin('motion.analog-out-00')
+            self.write_acknowledge = lambda value: self.hal_write_pin('motion.digital-in-00',value)
+            self.read_ackowledge = lambda : self.hal_read_pin('motion.digital-in-00')
             
-            self.read_pos_current_mach = lambda : self.hal_read_pin('')
-            self.write_pos_comp_mach = lambda value:self.hal_write_pin('',value)
+            self.read_pos_current_mach = self.hal_read_current_pos
+            self.write_pos_comp_mach = self.hal_write_comp_pos
 
             pass
         pass
@@ -80,5 +80,12 @@ class Swither(object):
     def hal_write_pin(self,pin_name,value):
         self.hal_channel_write.send([pin_name,str(value)])
         return self.hal_channel_write.receive()
+    
+    def hal_read_current_pos(self):
+        return [ self.hal_read_pin('joint.{}.pos-fb'.format(x)) for x in range(0,3)]
+    def hal_write_comp_pos(self,pos=[]):
+        for index in range(len(pos)):
+            self.hal_write_pin('motion.analog-in-0{}'.format(index),pos[index])
+
 
     pass

@@ -62,5 +62,5 @@ def test_switcher_hal_funcs():
     value = instance.read_pos_current_mach()
 
     instance.write_acknowledge(True)
-    instance.write_pos_comp_mach([0,1,2])
+    instance.write_pos_comp_mach([random()]*3)
     pass
