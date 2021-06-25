@@ -22,12 +22,19 @@ def test_channel():
 
 def test_channel_hal_py27():
     instance = Swither()
-    channel = instance.create_channel('hal_gate_py27','hal_read_value',python_version='2.7')
-
+    read_channel = instance.create_channel('hal_gate_py27','hal_read_value',python_version='2.7')
+    write_channel = instance.create_channel('hal_gate_py27','hal_set_value',python_version='2.7')
+    
+    pin_name = 'motion.analog-in-00'
     for x in range(0,10):
-        pin_name = 'joint.0.pos-fb' 
-        channel.send([str(pin_name)]) #need to embrace arguments by a list
-        recv = channel.receive()
+        value = random()
+
+        write_channel.send([pin_name,str(value)])
+        write_channel.receive()
+
+        read_channel.send([pin_name]) #need to embrace arguments by a list
+        recv = read_channel.receive()
+        assert recv == value
     pass
 
 
