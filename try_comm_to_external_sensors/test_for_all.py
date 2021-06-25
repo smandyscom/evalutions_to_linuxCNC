@@ -23,3 +23,16 @@ def test_channel():
 def test_channel_is_hal_existed():
     instance = Swither()
     pass
+
+
+def test_switcher_hal_funcs():
+    instance = Swither()
+
+    value = instance.read_trigger()
+    value = instance.read_ackowledge()
+    value = instance.read_pos_index()
+    value = instance.read_pos_current_mach()
+
+    instance.write_acknowledge(True)
+    instance.write_pos_comp_mach([0,1,2])
+    pass
