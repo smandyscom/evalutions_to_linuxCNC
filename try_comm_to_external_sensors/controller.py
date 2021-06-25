@@ -32,10 +32,10 @@ class Controller(QObject):
 
         #Timer to update/run sequence
         self.qTimer = QTimer(parent=self)
-        self.qTimer.timeout.connect(self.onTimerTimeout_run_handshake)
-        self.qTimer.timeout.connect(self.onTimerTimeout_dice_values)
+        #self.qTimer.timeout.connect(self.onTimerTimeout_run_handshake)
+        #self.qTimer.timeout.connect(self.onTimerTimeout_dice_values)
         self.qTimer.timeout.connect(self.onTimerTimeout_update_ui)
-        self.qTimer.setInterval(100)
+        self.qTimer.setInterval(200)
         self.qTimer.start()
 
         #Slot to received changes from UI
@@ -54,7 +54,8 @@ class Controller(QObject):
     def onTimerTimeout_update_ui(self):
         self.__mach_positions = self.__interface__.read_pos_current_mach()
         for index in range(len(self.updateCurrentPositions)):
-            self.updateCurrentPositions[index].updatePost.emit(str(self.__mach_positions[index]))
+            value = self.__mach_positions[index]
+            self.updateCurrentPositions[index].updatePost.emit(str(value))
         self.updatePosIndex.emit(str(self.__interface__.read_pos_index()))
         self.updateTriggerSignal.emit(self.__interface__.read_trigger())
         

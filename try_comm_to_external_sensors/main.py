@@ -5,7 +5,7 @@ env = os.environ
 env.setdefault("QT_DEBUG_PLUGINS","1")
 
 import sys
-sys.path.append(r'.\try_comm_to_external_sensors')
+#sys.path.append(r'.\try_comm_to_external_sensors')
 import typing
 
 from PyQt5.QtCore import qAbs 
@@ -23,7 +23,7 @@ class Window(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
 
-        self.main_widget = loadUi(r'try_comm_to_external_sensors/mainwindow.ui',self) #dynamically way to load .ui file
+        self.main_widget = loadUi(r'mainwindow.ui',self) #dynamically way to load .ui file
 
         #self.setupUi(self) # statical way to load .ui file, have to use pyuic.exe to generate ui.py first
 
