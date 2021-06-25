@@ -74,11 +74,11 @@ class Swither(object):
         return bool(channel.receive())
 
     def hal_read_pin(self,pin_name):
-        self.hal_channel_read.send(pin_name)
+        self.hal_channel_read.send([pin_name])
         return self.hal_channel_read.receive()
 
     def hal_write_pin(self,pin_name,value):
-        self.hal_channel_write.send(pin_name,value)
+        self.hal_channel_write.send([pin_name,str(value)])
         return self.hal_channel_write.receive()
 
     pass

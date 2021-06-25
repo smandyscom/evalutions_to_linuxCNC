@@ -43,6 +43,16 @@ def test_channel_is_hal_existed():
     pass
 
 
+def test_switcher_hal_read_write_pin():
+    instance = Swither()
+
+    pin_name = 'motion.analog-in-00'
+    value = random()
+    instance.hal_write_pin(pin_name,str(value))
+    recv = instance.hal_read_pin(pin_name)
+    assert recv==value
+    pass
+
 def test_switcher_hal_funcs():
     instance = Swither()
 
