@@ -69,9 +69,13 @@ class Swither(object):
     
     def is_hal_existed(self):
         #check from python 2.y if hal existed
-        channel = self.create_channel('hal_gate_py27','is_hal_existed',python_version='2.7', selection='one_shot')
-        channel.send([])
-        return bool(channel.receive())
+        try :
+            channel = self.create_channel('hal_gate_py27','is_hal_existed',python_version='2.7', selection='one_shot')
+            channel.send([])
+            result = bool(channel.receive())
+        except : 
+            result = False
+        return result
 
     def hal_read_pin(self,pin_name):
         self.hal_channel_read.send([pin_name])
