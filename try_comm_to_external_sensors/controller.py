@@ -9,16 +9,20 @@ from switcher import Swither
 
 
 class SignalCarrier(QObject):
-    updatePost  = pyqtSignal(str)
+    updatePost = pyqtSignal(str)
+
+    def __init__(self, parent: typing.Optional['QObject']) -> None:
+        super().__init__(parent=parent)
+
 
 class Controller(QObject):
 
     #Signals to update UI (Need to shared among instances?)
     '''updateCurrentPostions = [pyqtSignal(str)]*3 #wrong way'''
-    updateCurrentPositions = [SignalCarrier()]*3
+    """ updateCurrentPositions = [SignalCarrier()]*3
     updateVisionPositions = [SignalCarrier()]*3
     updateCalculatedPositions = [SignalCarrier()]*3
-
+ """
     updateTriggerSignal = pyqtSignal(bool) #QLabel should be promoted to have corrsponding slot
     updatePosIndex = pyqtSignal(str)
 
@@ -30,15 +34,23 @@ class Controller(QObject):
 
         self.tableWidget=QTableWidget() #dummy one, need to be linked
 
+        dof = range(0,3)
+        self.updateCurrentPositions = [SignalCarrier(self) for x in dof]
+        self.updateVisionPositions = [SignalCarrier(self) for x in dof]
+        self.updateCalculatedPositions = [SignalCarrier(self) for x in dof]
+        # wrong way which would multiple handles to link only one instance 
+        # self.updateVisionPositions = [SignalCarrier(self)]*3 
+        
+
         #Timer to update/run sequence
         self.qTimer = QTimer(parent=self)
-        #self.qTimer.timeout.connect(self.onTimerTimeout_run_handshake)
-        #self.qTimer.timeout.connect(self.onTimerTimeout_dice_values)
+        self.qTimer.timeout.connect(self.onTimerTimeout_run_handshake)
+        self.qTimer.timeout.connect(self.onTimerTimeout_dice_values)
         self.qTimer.timeout.connect(self.onTimerTimeout_update_ui)
         self.qTimer.setInterval(200)
         self.qTimer.start()
 
-        #Slot to received changes from UI
+        
 
         pass
 
@@ -56,6 +68,7 @@ class Controller(QObject):
         for index in range(len(self.updateCurrentPositions)):
             value = self.__mach_positions[index]
             self.updateCurrentPositions[index].updatePost.emit(str(value))
+        
         self.updatePosIndex.emit(str(self.__interface__.read_pos_index()))
         self.updateTriggerSignal.emit(self.__interface__.read_trigger())
         
