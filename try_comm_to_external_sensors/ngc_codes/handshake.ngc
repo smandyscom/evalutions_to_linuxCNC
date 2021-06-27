@@ -1,0 +1,33 @@
+(More information about the search path and options for the search path are in the INI Configuration Section.)
+(filename handshake.ngc)
+
+(example : )
+(filename myfile.ngc)
+(o<myfile> sub)
+  (code here)
+(o<myfile> endsub)
+(M2)
+
+O<handshake> sub
+    (code here)
+    (TRIGGER = 'motion.digital-out-00')
+    (POS_INDEX = 'motion.analog-out-00')
+    (ACK = 'motion.digital-in-00',value)
+    
+    M64 P0 (set digital out 0 to be on)
+
+    M66 P0 L3 Q600 (wait up to 600 seconds for digital input 0 to be on)
+    (debug, received ACK, execute further motion tasks....)
+
+    O100 IF [#1 GT 0 AND #1 LE 9]
+        (To change Coordinate the which #1 indicated)
+        (Read compensated coordinate positions from HAL then set new offset through G10)
+        G10 L2 P[#1] X[#<_hal[motion.analog-in-00]>] Y[#<_hal[motion.analog-in-01]>] R[#<_hal[motion.analog-in-01]>]
+    O100 ENDIF
+    
+    M65 P0 (off the trigger)
+
+    M66 P0 L4 Q600 (await ACK off)
+
+O<handshake> sub
+M2
