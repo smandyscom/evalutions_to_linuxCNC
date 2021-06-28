@@ -1,2 +1,26 @@
 (More information about the search path and options for the search path are in the INI Configuration Section.)
 (filename jump.ngc)
+
+O<jump> sub
+    (code here)
+    (#1 XTarget)
+    (#2 YTarget)
+
+    #<loca_z_safe_height> = 10
+    O100 IF EXISTS[#<_z_safe_height>]
+        #<local_z_safe_height> = #<_z_safe_height>
+
+    (Move Z upward, XY retained)
+    G91
+    G0 Z[#<local_z_safe_height>]
+
+    (To Target point where ready to drop Z-axis)
+    G90
+    G0 X[#1] Y[#2]
+
+    G91
+    G0 Z-[#<local_z_safe_height>]
+    G90
+    
+O<jump> sub
+M2
