@@ -1,0 +1,4 @@
+
+#<real_pos_in_vision_X> = [#<_hal[motion.analog-in-00]>]
+#<real_pos_in_vision_Y> = [#<_hal[motion.analog-in-01]>]
+#<real_pos_in_vision_R> = [#<_hal[motion.analog-in-02]>]

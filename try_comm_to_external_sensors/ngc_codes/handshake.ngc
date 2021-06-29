@@ -13,17 +13,26 @@ O<handshake> sub
     (TRIGGER = 'motion.digital-out-00')
     (POS_INDEX = 'motion.analog-out-00')
     (ACK = 'motion.digital-in-00',value)
-    
+
+    #<pos_index> = -1
+    O102 IF EXISTS[#1]
+      #<pos_index> = #1
+
+    (#<coordinate_num> = -1)
+    (O101 IF EXISTS[#2])
+      (#<coordinate_num> = #2)
+
+    M67 E0 P[#<pos_index>] (set analog-out-00 to be value)
     M64 P0 (set digital out 0 to be on)
 
     M66 P0 L3 Q600 (wait up to 600 seconds for digital input 0 to be on)
     (debug, received ACK, execute further motion tasks....)
 
-    O100 IF [#1 GT 0 AND #1 LE 9]
+    (O100 IF [#<coordinate_num> GT 0 AND #<coordinate_num> LE 9])
         (To change Coordinate the which #1 indicated)
         (Read compensated coordinate positions from HAL then set new offset through G10)
-        G10 L2 P[#1] X[#<_hal[motion.analog-in-00]>] Y[#<_hal[motion.analog-in-01]>] R[#<_hal[motion.analog-in-01]>]
-    O100 ENDIF
+        (G10 L2 P[#<coordinate_num>] X[#<_hal[motion.analog-in-00]>] Y[#<_hal[motion.analog-in-01]>] R[#<_hal[motion.analog-in-01]>])
+    (O100 ENDIF)
     
     M65 P0 (off the trigger)
 

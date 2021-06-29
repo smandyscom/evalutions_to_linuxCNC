@@ -1,0 +1,28 @@
+
+(draw a 9-checkerboard shape)
+(More information about the search path and options for the search path are in the INI Configuration Section.)
+(filename jump.ngc)
+
+O<calibration> sub
+    #<counter> = 0 (assign counter #1 the value of 0)
+
+    #<x_start> = #1
+    #<y_start> = #2
+    #<x_pitch> = #3
+    #<y_pitch> = #4
+
+    F25 (set a feed rate)
+
+    O101 while [#<counter> LT 10]
+    
+        #<x_current> = [#<x_start> + #<x_pitch> * #<counter>]
+        #<y_current> = [#<y_start> + #<y_pitch> * #<counter>]
+
+        O<jump> [#<x_current>] [#<y_current>] (jump to target point)
+        O<handshake> [#<counter>] (tell cameara which position it is )
+
+        #<counter> = [#<counter>+1] (increment the test counter)
+
+    O101 endwhile
+O<calibration> sub
+M2 (end program)
