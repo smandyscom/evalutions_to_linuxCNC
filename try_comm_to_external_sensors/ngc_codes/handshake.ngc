@@ -15,18 +15,20 @@ O<handshake> sub
     (ACK = 'motion.digital-in-00',value)
 
     #<pos_index> = -1
-    O102 IF EXISTS[#1]
+    O102 IF [EXISTS[#1]]
       #<pos_index> = #1
+    O102 endif
 
     (#<coordinate_num> = -1)
     (O101 IF EXISTS[#2])
       (#<coordinate_num> = #2)
 
-    M67 E0 P[#<pos_index>] (set analog-out-00 to be value)
+    M67 E0 Q[#<pos_index>] (set analog-out-00 to be value)
     M64 P0 (set digital out 0 to be on)
 
     M66 P0 L3 Q600 (wait up to 600 seconds for digital input 0 to be on)
     (debug, received ACK, execute further motion tasks....)
+    ;$ halcmd setp motion.digital-in-00 true
 
     (O100 IF [#<coordinate_num> GT 0 AND #<coordinate_num> LE 9])
         (To change Coordinate the which #1 indicated)
@@ -35,8 +37,10 @@ O<handshake> sub
     (O100 ENDIF)
     
     M65 P0 (off the trigger)
+    ;$ halcmd setp motion.digital-in-00 false
 
     M66 P0 L4 Q600 (await ACK off)
 
-O<handshake> sub
+O<handshake> endsub
+
 M2
