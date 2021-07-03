@@ -13,10 +13,10 @@ O<calibration> sub
 
     F25 (set a feed rate)
 
-    O101 while [#<counter> LT 10]
+    O101 while [#<counter> LT 9]
     
-        #<x_current> = [#<x_start> + #<x_pitch> * #<counter>]
-        #<y_current> = [#<y_start> + #<y_pitch> * #<counter>]
+        #<x_current> = [#<x_start> + #<x_pitch> * FIX[ [#<counter> / 3] ]]
+        #<y_current> = [#<y_start> + #<y_pitch> * [#<counter> MOD 3]]
 
         O<jump> call [#<x_current>] [#<y_current>] (jump to target point)
         O<handshake> call [#<counter>] (tell cameara which position it is )

@@ -1,6 +1,9 @@
-O<jump> call [30] [30]
+(O<jump> call [30] [30])
 (O<handshake> call)
 
-O<calibration> call [10] [10] [10] [10]
+O<calibration> call [10] [10] [20] [20]
+
+#<test_value> = [7 MOD 3] (reminder)
+(debug, #<test_value>)
 
 M2
