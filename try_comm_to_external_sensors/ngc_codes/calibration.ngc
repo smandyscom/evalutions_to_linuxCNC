@@ -18,11 +18,13 @@ O<calibration> sub
         #<x_current> = [#<x_start> + #<x_pitch> * #<counter>]
         #<y_current> = [#<y_start> + #<y_pitch> * #<counter>]
 
-        O<jump> [#<x_current>] [#<y_current>] (jump to target point)
-        O<handshake> [#<counter>] (tell cameara which position it is )
+        O<jump> call [#<x_current>] [#<y_current>] (jump to target point)
+        O<handshake> call [#<counter>] (tell cameara which position it is )
 
         #<counter> = [#<counter>+1] (increment the test counter)
 
     O101 endwhile
-O<calibration> sub
+
+O<calibration> endsub
+
 M2 (end program)
