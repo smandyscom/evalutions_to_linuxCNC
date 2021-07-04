@@ -15,7 +15,7 @@ G43 H1
 ```
 - NOTE :
     For camera installed on Z-head, which could be preproamed its position by this. 
-    After **CALIBRATION** operation done.
+    After **CALIBRATION** operation done, it should have the offseted X/Y from default tool center.
 
 
 ## Work Table
