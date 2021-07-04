@@ -102,7 +102,7 @@ class Controller(QObject):
             self.tableWidget.setItem(pos_index,i,QTableWidgetItem(str(self.__mach_positions[i])))
 
         #Simulation to TRIGGER Vision capture process
-        self.onSimuTriggerVision(self.__mach_positions)
+        self.onSimuTriggerVision()
         for i in range(len(self.__vision_positions)):
             self.tableWidget.setItem(pos_index,i+3,QTableWidgetItem(str(self.__vision_positions[i])))
 
