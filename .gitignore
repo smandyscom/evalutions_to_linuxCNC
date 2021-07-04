@@ -136,3 +136,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+try_comm_to_external_sensors/demo_scenerio.png
