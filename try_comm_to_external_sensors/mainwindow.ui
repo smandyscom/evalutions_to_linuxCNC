@@ -140,7 +140,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_CP_MACH_THETA">
+           <widget class="QLineEdit" name="lineEdit_CP_MACH_Z">
             <property name="readOnly">
              <bool>true</bool>
             </property>
