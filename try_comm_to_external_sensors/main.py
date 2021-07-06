@@ -19,9 +19,6 @@ cwd = getcwd()
 from controller import Controller
 from mainwindow import Ui_MainWindow
 
-from qmymodel import qMyPosTableModel
-
-
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
@@ -44,17 +41,19 @@ class Window(QMainWindow, Ui_MainWindow):
         self.__controler.updateVisionPositions[1].updatePost.connect(self.lineEdit_CP_VI_Y.setText)
         
         self.__controler.updatePosIndex.connect(self.label_POS_INDEX.setText)
-        self.__controler.tableWidget= self.tableWidget_CALI
 
         self.__controler.updateTriggerSignal.connect(self.label_TRIGGERD.onStateChanged)
         self.__controler.updateTriggerSignal.connect(self.pushButton_ACK.setEnabled)
         
         self.pushButton_ACK.clicked.connect(self.__controler.onButtonAckClicked)
 
-        model = qMyPosTableModel(self)
-        self.tableView.setModel(model)
+        self.tableViewCalibration.setModel(self.__controler.model)
+        [self.tableViewCalibration.setRowHidden(x,True) for x in range(0,16)]
+        [self.tableViewCalibration.setRowHidden(x,False) for x in range(0,9)] #Open
 
-        model.points = (1,(1,2,3,4))
+        self.tableViewOperation.setModel(self.__controler.model)
+        [self.tableViewOperation.setRowHidden(x,True) for x in range(0,16)]
+        [self.tableViewOperation.setRowHidden(x,False) for x in range(9,13)] #Open
 
         pass
 

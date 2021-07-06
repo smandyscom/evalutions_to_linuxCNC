@@ -188,7 +188,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab">
          <property name="sizePolicy">
@@ -305,79 +305,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QTableWidget" name="tableWidget_CALI">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <row>
-               <property name="text">
-                <string>0</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>1</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>2</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>3</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>4</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>5</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>6</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>7</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>8</string>
-               </property>
-              </row>
-              <column>
-               <property name="text">
-                <string>X_MACH</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Y_MACH</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>X_VISION</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Y_VISION</string>
-               </property>
-              </column>
-             </widget>
+             <widget class="QTableView" name="tableViewCalibration"/>
             </item>
            </layout>
           </item>
@@ -521,57 +449,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QTableWidget" name="tableWidget_WK">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <row>
-               <property name="text">
-                <string>0</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>1</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>2</string>
-               </property>
-              </row>
-              <row>
-               <property name="text">
-                <string>3</string>
-               </property>
-              </row>
-              <column>
-               <property name="text">
-                <string>X_MACH</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Y_MACH</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>X_VISION</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Y_VISION</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTableView" name="tableView"/>
+             <widget class="QTableView" name="tableViewOperation"/>
             </item>
            </layout>
           </item>
