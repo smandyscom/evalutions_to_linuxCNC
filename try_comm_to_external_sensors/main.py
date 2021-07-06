@@ -9,7 +9,7 @@ import sys
 sys.path.append(r'.qt_for_python\uic')
 import typing
 
-from PyQt5.QtCore import qAbs 
+from PyQt5.QtCore import QModelIndex, qAbs 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget
 from PyQt5.uic import loadUi
@@ -18,6 +18,8 @@ cwd = getcwd()
 
 from controller import Controller
 from mainwindow import Ui_MainWindow
+
+from qmymodel import qMyPosTableModel
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -48,6 +50,11 @@ class Window(QMainWindow, Ui_MainWindow):
         self.__controler.updateTriggerSignal.connect(self.pushButton_ACK.setEnabled)
         
         self.pushButton_ACK.clicked.connect(self.__controler.onButtonAckClicked)
+
+        model = qMyPosTableModel(self)
+        self.tableView.setModel(model)
+
+        model.points = (1,(1,2,3,4))
 
         pass
 

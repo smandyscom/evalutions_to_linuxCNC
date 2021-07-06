@@ -25,6 +25,7 @@ class Controller(QObject):
  """
     updateTriggerSignal = pyqtSignal(bool) #QLabel should be promoted to have corrsponding slot
     updatePosIndex = pyqtSignal(str)
+    updatePosTable = pyqtSignal(int,str) #index, and position content
 
     def __init__(self, parent: typing.Optional['QObject']) -> None:
         super().__init__(parent=parent)
@@ -79,7 +80,14 @@ class Controller(QObject):
             self.__state__ = 100
 
         elif self.__state__ == 100 and self.__interface__.read_ackowledge():
+
             pos_index = self.__interface__.read_pos_index() #read from CNC
+            self.__mach_positions = self.__interface__.read_pos_current_mach()
+            #Simulation to TRIGGER Vision capture process
+            self.onSimuTriggerVision()
+
+            #write into MODEL according to POS_INDEX
+
             if pos_index == -1:
                 self.onTriggerToOperation()
             else:
@@ -96,13 +104,12 @@ class Controller(QObject):
     def onTriggerToCalibration(self,pos_index=0):
         #when received pos_index from 0-8
         #To change model?
-        self.__mach_positions = self.__interface__.read_pos_current_mach()
+        
 
         for i in range(len(self.__mach_positions)):
             self.tableWidget.setItem(pos_index,i,QTableWidgetItem(str(self.__mach_positions[i])))
 
-        #Simulation to TRIGGER Vision capture process
-        self.onSimuTriggerVision()
+        
         for i in range(len(self.__vision_positions)):
             self.tableWidget.setItem(pos_index,i+3,QTableWidgetItem(str(self.__vision_positions[i])))
 
@@ -111,7 +118,7 @@ class Controller(QObject):
     def onTriggerToOperation(self):
         self.__mach_positions = self.__interface__.read_pos_current_mach()
         self.onSimuTriggerVision()
-        self.onSimuTriggerCalculated()
+        self.evaluateWorkpieceCoordinate()
         pass
 
     def onSimuTriggerVision(self):
@@ -119,11 +126,17 @@ class Controller(QObject):
         #TO update Vision Position
         for index in range(len(self.updateVisionPositions)):
             self.updateVisionPositions[index].updatePost.emit(str(self.__vision_positions[index]))
-        pass
+        return self.__vision_positions
 
-    def onSimuTriggerCalculated(self):
+    #From WK table to evaluate
+    def evaluateWorkpieceCoordinate(self):
         self.__calculated = [x+random() for x in self.__vision_positions]
         #TO update Calculated Position
         for index in range(len(self.updateCalculatedPositions)):
             self.updateCalculatedPositions[index].updatePost.emit(str(self.__calculated[index]))
         pass
+
+    #From CALI table to evaluate
+    def evaluateToolCoordinate(self):
+        pass
+    

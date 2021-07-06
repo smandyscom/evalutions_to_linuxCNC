@@ -570,6 +570,9 @@
               </column>
              </widget>
             </item>
+            <item>
+             <widget class="QTableView" name="tableView"/>
+            </item>
            </layout>
           </item>
          </layout>
