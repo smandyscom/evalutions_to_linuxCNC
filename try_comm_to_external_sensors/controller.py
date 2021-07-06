@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 from random import random
 
 from switcher import Swither
-
+from qmymodel import qMyPosTableModel
 
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(str)
@@ -30,15 +30,17 @@ class Controller(QObject):
     def __init__(self, parent: typing.Optional['QObject']) -> None:
         super().__init__(parent=parent)
 
-        self.__interface__ = Swither()
-        self.__state__ = 0
+        self._interface = Swither()
+        self._state = 0
 
-        self.tableWidget=QTableWidget() #dummy one, need to be linked
+        self.model = qMyPosTableModel()
+        #model.points = (1,(1,2,3,4))
 
-        dof = range(0,3)
-        self.updateCurrentPositions = [SignalCarrier(self) for x in dof]
-        self.updateVisionPositions = [SignalCarrier(self) for x in dof]
-        self.updateCalculatedPositions = [SignalCarrier(self) for x in dof]
+        dof3 = range(0,3)
+        dof2 = range(0,2)
+        self.updateCurrentPositions = [SignalCarrier(self) for x in dof3]
+        self.updateVisionPositions = [SignalCarrier(self) for x in dof2]
+        self.updateWkCoord = [SignalCarrier(self) for x in dof3]
         # wrong way which would multiple handles to link only one instance 
         # self.updateVisionPositions = [SignalCarrier(self)]*3 
         
@@ -57,72 +59,55 @@ class Controller(QObject):
 
     @pyqtSlot()
     def onButtonAckClicked(self):
-        self.__interface__.write_acknowledge(not self.__interface__.read_ackowledge()) # flip the signal
+        self._interface.write_acknowledge(not self._interface.read_ackowledge()) # flip the signal
         pass
 
     def onTimerTimeout_dice_values(self):
-        self.__interface__.dice_values()
+        self._interface.dice_values()
         pass
 
     def onTimerTimeout_update_ui(self):
-        self.__mach_positions = self.__interface__.read_pos_current_mach()
+        self._mach_positions = self._interface.read_pos_current_mach()
         for index in range(len(self.updateCurrentPositions)):
-            value = self.__mach_positions[index]
+            value = self._mach_positions[index]
             self.updateCurrentPositions[index].updatePost.emit(str(value))
         
-        self.updatePosIndex.emit(str(self.__interface__.read_pos_index()))
-        self.updateTriggerSignal.emit(self.__interface__.read_trigger())
+        self.updatePosIndex.emit(str(self._interface.read_pos_index()))
+        self.updateTriggerSignal.emit(self._interface.read_trigger())
         
 
     #event handler to QTimer
     def onTimerTimeout_run_handshake(self):
-        if self.__state__ == 0 and self.__interface__.read_trigger():
-            self.__state__ = 100
+        if self._state == 0 and self._interface.read_trigger():
+            self._state = 100
 
-        elif self.__state__ == 100 and self.__interface__.read_ackowledge():
+        elif self._state == 100 and self._interface.read_ackowledge():
 
-            pos_index = self.__interface__.read_pos_index() #read from CNC
-            self.__mach_positions = self.__interface__.read_pos_current_mach()
+            pos_index = self._interface.read_pos_index() #read from CNC
+            self._mach_positions = self._interface.read_pos_current_mach()
             #Simulation to TRIGGER Vision capture process
-            self.onSimuTriggerVision()
+            vision_pos = self.onSimuTriggerVision()
 
             #write into MODEL according to POS_INDEX
+            if pos_index >= 0:
+                given_tuple = tuple(self._mach_positions[0:2]+vision_pos[0:2])
+                self.model.points = (pos_index,given_tuple)
 
-            if pos_index == -1:
-                self.onTriggerToOperation()
-            else:
-                self.onTriggerToCalibration(pos_index)
+            #update to see if any have positve result
+            result = self.evaluateToolCoordinate()
+            result = result or self.evaluateWorkpieceCoordinate()
 
-            #self.__interface__.write_acknowledge(True)
-            self.__state__ = 200
+            #TODO, result set flag
 
-        elif self.__state__ == 200 and self.__interface__.read_trigger()==False:
-            self.__interface__.write_acknowledge(False)
-            self.__state__ = 0 # to await signal rewind
-        pass
+            self._state = 200
 
-    def onTriggerToCalibration(self,pos_index=0):
-        #when received pos_index from 0-8
-        #To change model?
-        
-
-        for i in range(len(self.__mach_positions)):
-            self.tableWidget.setItem(pos_index,i,QTableWidgetItem(str(self.__mach_positions[i])))
-
-        
-        for i in range(len(self.__vision_positions)):
-            self.tableWidget.setItem(pos_index,i+3,QTableWidgetItem(str(self.__vision_positions[i])))
-
-        pass
-
-    def onTriggerToOperation(self):
-        self.__mach_positions = self.__interface__.read_pos_current_mach()
-        self.onSimuTriggerVision()
-        self.evaluateWorkpieceCoordinate()
+        elif self._state == 200 and self._interface.read_trigger()==False:
+            self._interface.write_acknowledge(False)
+            self._state = 0 # to await signal rewind
         pass
 
     def onSimuTriggerVision(self):
-        self.__vision_positions = [x+random() for x in self.__mach_positions]
+        self.__vision_positions = [x+random() for x in self._mach_positions]
         #TO update Vision Position
         for index in range(len(self.updateVisionPositions)):
             self.updateVisionPositions[index].updatePost.emit(str(self.__vision_positions[index]))
@@ -130,10 +115,10 @@ class Controller(QObject):
 
     #From WK table to evaluate
     def evaluateWorkpieceCoordinate(self):
-        self.__calculated = [x+random() for x in self.__vision_positions]
+        ''' self._calculated = [x+random() for x in self.__vision_positions]
         #TO update Calculated Position
-        for index in range(len(self.updateCalculatedPositions)):
-            self.updateCalculatedPositions[index].updatePost.emit(str(self.__calculated[index]))
+        for index in range(len(self.updateWkCoord)):
+            self.updateWkCoord[index].updatePost.emit(str(self._calculated[index])) '''
         pass
 
     #From CALI table to evaluate

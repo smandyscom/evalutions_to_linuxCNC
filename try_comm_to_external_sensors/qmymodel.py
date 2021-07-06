@@ -12,7 +12,7 @@ class qMyPosTableModel(QAbstractTableModel):
         1:'Y_MACH',
         2:'X_VISION',
         3:'Y_VISION'}
-        self._points = [tuple([random()]*4)]*16
+        self._points = [tuple([float()]*4)]*16
 
     @property
     def points(self):
