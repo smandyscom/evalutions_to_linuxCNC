@@ -23,7 +23,7 @@ O<handshake> sub
     (O101 IF EXISTS[#2])
       (#<coordinate_num> = #2)
 
-    M67 E0 Q[#<pos_index>] (set analog-out-00 to be value)
+    M68 E0 Q[#<pos_index>] (set analog-out-00 to be value)
     M64 P0 (set digital out 0 to be on)
 
     M66 P0 L3 Q600 (wait up to 600 seconds for digital input 0 to be on)
