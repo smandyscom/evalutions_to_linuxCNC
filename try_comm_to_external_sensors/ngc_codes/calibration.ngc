@@ -11,8 +11,6 @@ O<calibration> sub
     #<x_pitch> = #3
     #<y_pitch> = #4
 
-    F25 (set a feed rate)
-
     O101 while [#<counter> LT 9]
     
         #<x_current> = [#<x_start> + #<x_pitch> * FIX[ [#<counter> / 3] ]]
@@ -24,6 +22,14 @@ O<calibration> sub
         #<counter> = [#<counter>+1] (increment the test counter)
 
     O101 endwhile
+
+    G00 X0 Y0 (GO HOME)
+
+    (Setup the tool table)
+    #<real_pos_in_vision_X> = [#<_hal[motion.analog-in-00]>]
+    #<real_pos_in_vision_Y> = [#<_hal[motion.analog-in-01]>]
+
+    G10 L10 P2 X[#<real_pos_in_vision_X>] Y[#<real_pos_in_vision_Y>] Z0
 
 O<calibration> endsub
 

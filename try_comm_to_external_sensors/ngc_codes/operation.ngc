@@ -1,4 +1,12 @@
 
+(Run pre-define position then do handshake to vision system)
+
+
 #<real_pos_in_vision_X> = [#<_hal[motion.analog-in-00]>]
 #<real_pos_in_vision_Y> = [#<_hal[motion.analog-in-01]>]
 #<real_pos_in_vision_R> = [#<_hal[motion.analog-in-02]>]
+
+G10 L2 P1 X[#<real_pos_in_vision_X>] Y[#<real_pos_in_vision_Y>] R[#<real_pos_in_vision_R>] 
+(This will set G54)
+
+G54

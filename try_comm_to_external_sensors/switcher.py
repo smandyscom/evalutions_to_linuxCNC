@@ -45,6 +45,10 @@ class Swither(object):
             self.dummy_pos_current_mach[index] =  random()*1000
         pass
 
+    def simu_vision_capture(self):
+        #random the offset and noise
+        pass
+
     def create_channel(self,module_name,function_name,python_version='3.9',selection='looping'):
 
         #To create looping or one-shot remote execution

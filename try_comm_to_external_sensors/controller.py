@@ -119,9 +119,13 @@ class Controller(QObject):
         #TO update Calculated Position
         for index in range(len(self.updateWkCoord)):
             self.updateWkCoord[index].updatePost.emit(str(self._calculated[index])) '''
+        
+        #just average every pair differences.
+        # calculate X-O orientation
         pass
 
     #From CALI table to evaluate
     def evaluateToolCoordinate(self):
+        #just average every pair differences.
         pass
     
