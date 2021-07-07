@@ -91,7 +91,7 @@ class Controller(QObject):
             #write into MODEL according to POS_INDEX
             if pos_index >= 0:
                 given_tuple = tuple(self._mach_positions[0:2]+vision_pos[0:2])
-                self.model.points = (pos_index,given_tuple)
+                self.model.points = (int(pos_index),given_tuple)
 
             #update to see if any have positve result
             result = self.evaluateToolCoordinate()

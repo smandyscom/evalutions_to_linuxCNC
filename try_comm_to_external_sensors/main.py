@@ -7,6 +7,7 @@ env.setdefault("QT_DEBUG_PLUGINS","1")
 import sys
 #sys.path.append(r'.\try_comm_to_external_sensors')
 sys.path.append(r'.qt_for_python\uic')
+sys.path.append(r'.qt_for_python/uic')
 import typing
 
 from PyQt5.QtCore import QModelIndex, qAbs 
