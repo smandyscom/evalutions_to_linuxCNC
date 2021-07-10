@@ -69,4 +69,5 @@ def test_switcher_hal_funcs():
 def test_tool_coord():
     instance = Controller(None)
     instance.evaluateToolCoordinate()
+    instance.evaluateWorkpieceCoordinate()
     pass

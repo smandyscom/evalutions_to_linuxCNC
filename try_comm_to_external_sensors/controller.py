@@ -10,6 +10,7 @@ from qmymodel import qMyPosTableModel
 
 from functools import reduce
 from statistics import mean
+from math import atan,degrees
 
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(str)
@@ -56,7 +57,7 @@ class Controller(QObject):
         self.qTimer.setInterval(200)
         self.qTimer.start()
 
-        
+        self._tuple_substract = lambda x,y: (x[0]-y[0],x[1]-y[1])
 
         pass
 
@@ -103,7 +104,7 @@ class Controller(QObject):
             elif pos_index in range[9:13]:
                 result =  self.evaluateWorkpieceCoordinate()
 
-            self._interface.write_pos_comp_mach(result)
+            self._interface.write_pos_comp_mach(list(result))
 
             self._state = 200
 
@@ -128,13 +129,22 @@ class Controller(QObject):
         
         #just average every pair differences.
         # calculate X-O orientation
-        pass
+        aois = [x[2:4] for x in self.model.points[9:13]]
+        origin = aois[0]
+        x_axis = self._tuple_substract(aois[1] , aois[0])
+
+        angle_degree = 0
+        if x_axis[0] != 0 :
+            angle_radian = atan(x_axis[1]/x_axis[0])
+            angle_degree = degrees(angle_radian)
+
+        return origin,angle_degree
 
     #From CALI table to evaluate
     def evaluateToolCoordinate(self):
         #just average every pair differences.
-        tuple_substract = lambda x,y: (x[0]-y[0],x[1]-y[1])
-        diffs = [tuple_substract( x[2:4] , x[0:2]) for x in self.model.points[0:9]]
+        
+        diffs = [self._tuple_substract( x[2:4] , x[0:2]) for x in self.model.points[0:9]]
         avg = mean([x[0] for x in diffs]),mean(x[1] for x in diffs)
         return avg
     
