@@ -8,6 +8,9 @@ from random import random
 from switcher import Swither
 from qmymodel import qMyPosTableModel
 
+from functools import reduce
+from statistics import mean
+
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(str)
 
@@ -94,10 +97,13 @@ class Controller(QObject):
                 self.model.points = (int(pos_index),given_tuple)
 
             #update to see if any have positve result
-            result = self.evaluateToolCoordinate()
-            result = result or self.evaluateWorkpieceCoordinate()
+            result = []
+            if pos_index in range[0:9]:
+                result = self.evaluateToolCoordinate()
+            elif pos_index in range[9:13]:
+                result =  self.evaluateWorkpieceCoordinate()
 
-            #TODO, result set flag
+            self._interface.write_pos_comp_mach(result)
 
             self._state = 200
 
@@ -127,5 +133,8 @@ class Controller(QObject):
     #From CALI table to evaluate
     def evaluateToolCoordinate(self):
         #just average every pair differences.
-        pass
+        tuple_substract = lambda x,y: (x[0]-y[0],x[1]-y[1])
+        diffs = [tuple_substract( x[2:4] , x[0:2]) for x in self.model.points[0:9]]
+        avg = mean([x[0] for x in diffs]),mean(x[1] for x in diffs)
+        return avg
     

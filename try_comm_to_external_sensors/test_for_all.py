@@ -1,3 +1,4 @@
+from controller import Controller
 from switcher import Swither
 from random import random
 from hal_gate_py27 import dummy_echo
@@ -63,4 +64,9 @@ def test_switcher_hal_funcs():
 
     instance.write_acknowledge(True)
     instance.write_pos_comp_mach([random()]*3)
+    pass
+
+def test_tool_coord():
+    instance = Controller(None)
+    instance.evaluateToolCoordinate()
     pass
