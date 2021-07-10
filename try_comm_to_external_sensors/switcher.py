@@ -1,7 +1,11 @@
 import importlib
 from importlib.util import find_spec
-from random import random
+from random import random,seed
+from datetime import datetime
 from execnet import makegateway
+from functools import reduce
+
+seed(datetime.now())
 class Swither(object):
     def __init__(self, *args):
         super(Swither, self).__init__(*args)
@@ -10,9 +14,10 @@ class Swither(object):
         self.dummy_io_acknowledge = bool()
         self.dummy_io_pos_index = int(-1)
         
-        self.dummy_pos_current_mach = [float()]*3 # x,y,theta, from CNC
+        self.dummy_pos_current_mach = [float()]*3 # x,y,z, from CNC
         self.dummy_pos_comp_mach = [float()]*3 # to CNC
 
+        self._simu_aoi_assemble_error = [random()*15 + random() for x in range(2)]# from 
 
         #interfaces 
         self.read_trigger = lambda : self.dummy_io_trigger
@@ -47,7 +52,10 @@ class Swither(object):
 
     def simu_vision_capture(self):
         #random the offset and noise
-        pass
+        reduce_pos_merge = lambda x,y : [x[0] + y[0],x[1]+y[1]]
+        result = reduce(reduce_pos_merge,[self._simu_aoi_assemble_error , self.read_pos_current_mach()[0:2]])
+        result = reduce(reduce_pos_merge, [result , [random() for x in range(len(result))]])
+        return result
 
     def create_channel(self,module_name,function_name,python_version='3.9',selection='looping'):
 

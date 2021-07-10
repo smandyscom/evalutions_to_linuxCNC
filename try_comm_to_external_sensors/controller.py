@@ -44,7 +44,10 @@ class Controller(QObject):
         dof2 = range(0,2)
         self.updateCurrentPositions = [SignalCarrier(self) for x in dof3]
         self.updateVisionPositions = [SignalCarrier(self) for x in dof2]
+
         self.updateWkCoord = [SignalCarrier(self) for x in dof3]
+        self.updateToolCoord = [SignalCarrier(self) for x in dof2]
+
         # wrong way which would multiple handles to link only one instance 
         # self.updateVisionPositions = [SignalCarrier(self)]*3 
         
@@ -99,12 +102,17 @@ class Controller(QObject):
 
             #update to see if any have positve result
             result = []
-            if pos_index in range[0:9]:
+            update_to = self.updateWkCoord
+            if pos_index in range(0,9):
                 result = self.evaluateToolCoordinate()
-            elif pos_index in range[9:13]:
+                update_to = self.updateToolCoord
+            elif pos_index in range(9,13):
                 result =  self.evaluateWorkpieceCoordinate()
+                update_to = self.updateWkCoord
+                
 
             self._interface.write_pos_comp_mach(list(result))
+            [update_to[x].updatePost.emit(str(result[x])) for x in range(len(result))]
 
             self._state = 200
 
@@ -114,7 +122,7 @@ class Controller(QObject):
         pass
 
     def onSimuTriggerVision(self):
-        self.__vision_positions = [x+random() for x in self._mach_positions]
+        self.__vision_positions = self._interface.simu_vision_capture()
         #TO update Vision Position
         for index in range(len(self.updateVisionPositions)):
             self.updateVisionPositions[index].updatePost.emit(str(self.__vision_positions[index]))
@@ -138,7 +146,7 @@ class Controller(QObject):
             angle_radian = atan(x_axis[1]/x_axis[0])
             angle_degree = degrees(angle_radian)
 
-        return origin,angle_degree
+        return origin+ (angle_degree,)
 
     #From CALI table to evaluate
     def evaluateToolCoordinate(self):

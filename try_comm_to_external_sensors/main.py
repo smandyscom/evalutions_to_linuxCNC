@@ -40,6 +40,14 @@ class Window(QMainWindow, Ui_MainWindow):
         
         self.__controler.updateVisionPositions[0].updatePost.connect(self.lineEdit_CP_VI_X.setText)
         self.__controler.updateVisionPositions[1].updatePost.connect(self.lineEdit_CP_VI_Y.setText)
+
+        self.__controler.updateToolCoord[0].updatePost.connect(self.lineEdit_TOOL_X.setText)
+        self.__controler.updateToolCoord[1].updatePost.connect(self.lineEdit_TOOL_Y.setText)
+
+        self.__controler.updateWkCoord[0].updatePost.connect(self.lineEdit_WK_X.setText)
+        self.__controler.updateWkCoord[1].updatePost.connect(self.lineEdit_WK_Y.setText)
+        self.__controler.updateWkCoord[2].updatePost.connect(self.lineEdit_WK_THETA.setText)
+
         
         self.__controler.updatePosIndex.connect(self.label_POS_INDEX.setText)
 

@@ -71,3 +71,9 @@ def test_tool_coord():
     instance.evaluateToolCoordinate()
     instance.evaluateWorkpieceCoordinate()
     pass
+
+
+def test_switcher():
+    instance = Swither()
+    result = instance.simu_vision_capture()
+    pass
