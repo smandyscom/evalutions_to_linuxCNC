@@ -1,6 +1,10 @@
 (O<jump> call [30] [30])
 (O<handshake> call)
 
+(reset G54)
+G10 L2 P1 X0 Y0 R0
+(This will set G54)
+G54 (select the G54)
 O<calibration> call [10] [10] [20] [20]
 
 #<test_value> = [7 MOD 3] (reminder)

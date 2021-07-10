@@ -30,7 +30,7 @@ O<calibration> sub
     #<real_pos_in_vision_Y> = [#<_hal[motion.analog-in-01]>]
 
     G10 L10 P2 X[#<real_pos_in_vision_X>] Y[#<real_pos_in_vision_Y>] Z0
-    G43 H1 (set in tool table)
+    (G43 H1) (set in tool table)
 
 O<calibration> endsub
 

@@ -1,18 +1,23 @@
+(reset G54)
+G10 L2 P1 X0 Y0 R0
+(This will set G54)
+G54 (select the G54)
 
 (Run pre-define position then do handshake to vision system)
-T1 (change to AOI tool) 
-
-G00 X10 Y10
+G43 H2 (change to AOI tool) 
+O<jump> call [30] [10]
 O<handshake> call [9]
 
-G00 X20 Y10
+O<jump> call [60] [10]
 O<handshake> call [10]
 
-G00 X10 Y20
+O<jump> call [30] [20]
 O<handshake> call [11]
 
-G00 X20 Y20
+O<jump> call [60] [20]
 O<handshake> call [12]
+
+G43 H1
 
 #<real_pos_in_vision_X> = [#<_hal[motion.analog-in-00]>]
 #<real_pos_in_vision_Y> = [#<_hal[motion.analog-in-01]>]
@@ -23,3 +28,4 @@ G10 L2 P1 X[#<real_pos_in_vision_X>] Y[#<real_pos_in_vision_Y>] R[#<real_pos_in_
 G54 (select the G54)
 
 (run further...graving task)
+M2
