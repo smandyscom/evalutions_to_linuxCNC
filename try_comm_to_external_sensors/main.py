@@ -10,8 +10,8 @@ sys.path.append(r'.qt_for_python\uic')
 sys.path.append(r'.qt_for_python/uic')
 import typing
 
-from PyQt5.QtCore import QModelIndex, qAbs 
-from PyQt5 import QtCore
+from PyQt5.QtCore import QModelIndex, qAbs
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget
 from PyQt5.uic import loadUi
 cwd = getcwd()
@@ -64,6 +64,7 @@ class Window(QMainWindow, Ui_MainWindow):
         [self.tableViewOperation.setRowHidden(x,True) for x in range(0,16)]
         [self.tableViewOperation.setRowHidden(x,False) for x in range(9,13)] #Open
 
+        self.label_3.setPixmap(QtGui.QPixmap("demo_scenerio.png"))
         pass
 
 if __name__ == '__main__':
