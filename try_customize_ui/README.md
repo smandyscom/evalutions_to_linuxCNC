@@ -24,6 +24,25 @@ Participatants
 
 3. [] feedrate should be able being defined.
 
+4. [] replay pre-defined points should be ok.
+
+5. [] should offer facilities in jog mode to change speed, target, mode
+
+6. use scenerio consist:
+    1. list each predefined point in a table
+    2. when teaching, one button to record current posisition.
+    3. when teaching, offer a control panel to jog axis (X,Y,Z)
+    4. after teached, one button to replay recorded point.
+
 ### Notes
 
 1. Only available for points related to G00
+
+### Infrastructure
+
+#### NGC side
+
+1. a service routine to receive running composited G-code command?
+    - or just simply use MDI mode to send simple G-code command?
+
+#### HMI side
