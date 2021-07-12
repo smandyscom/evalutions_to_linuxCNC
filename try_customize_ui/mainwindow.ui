@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>647</height>
+    <width>440</width>
+    <height>736</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,31 +16,187 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_10">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>ControlPanel</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QPushButton" name="pushButton_13">
-            <property name="text">
-             <string>UNLOCK</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <widget class="QPushButton" name="pushButton_UNLLOCK">
+                <property name="text">
+                 <string>UNLOCK</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_SRV_ON">
+                <property name="text">
+                 <string>SERVO_ON</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="font">
+                 <font>
+                  <family>微軟正黑體</family>
+                  <pointsize>16</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                  <underline>true</underline>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>POINTS_TABLE</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableView" name="tableView"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QPushButton" name="pushButton_TEACH">
+                  <property name="text">
+                   <string>TEACH</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_REPLAY">
+                  <property name="text">
+                   <string>REPLAY</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="font">
+               <font>
+                <family>微軟正黑體</family>
+                <pointsize>16</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+                <underline>true</underline>
+               </font>
+              </property>
+              <property name="text">
+               <string>MONITOR_DIRECT_GO</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLabel" name="label_9">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::Box</enum>
+                  </property>
+                  <property name="text">
+                   <string>X</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::AutoText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_CUR_X"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::Box</enum>
+                  </property>
+                  <property name="text">
+                   <string>Z</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::AutoText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_CUR_Y"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::Box</enum>
+                  </property>
+                  <property name="text">
+                   <string>Y</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::AutoText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_CUR_Z"/>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_12">
+              <property name="text">
+               <string>GO</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_14">
-            <property name="text">
-             <string>SERVO_ON</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_12">
+           <widget class="QLabel" name="label_7">
             <property name="font">
              <font>
               <family>微軟正黑體</family>
@@ -51,145 +207,164 @@
              </font>
             </property>
             <property name="text">
-             <string>POINTS_TABLE</string>
+             <string>JOG_PANEL</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTableView" name="tableView"/>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QLabel" name="label_13">
               <property name="text">
-               <string>TEACH</string>
+               <string>MODE</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QComboBox" name="comboBox_MODE_SEL">
+              <item>
+               <property name="text">
+                <string>Continous</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1mm</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>0.1mm</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>0.01mm</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>0.001mm</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Input</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_14">
               <property name="text">
-               <string>REPLAY</string>
+               <string>FEEDRATE</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="horizontalSlider_FEEDRATE">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
            </layout>
           </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_8">
-          <property name="font">
-           <font>
-            <family>微軟正黑體</family>
-            <pointsize>16</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-            <underline>true</underline>
-           </font>
-          </property>
-          <property name="text">
-           <string>MONITOR_DIRECT_GO</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QLabel" name="label_9">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
+             <widget class="QLabel" name="label">
               <property name="text">
                <string>X</string>
               </property>
-              <property name="textFormat">
-               <enum>Qt::AutoText</enum>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_X_N">
+              <property name="text">
+               <string>-</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
+             <widget class="QPushButton" name="pushButton_JOG_X_P">
               <property name="text">
-               <string>Cur_Pos_X</string>
+               <string>+</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_X_H">
+              <property name="text">
+               <string>HOME</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QLabel" name="label_11">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string>Z</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::AutoText</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string>Cur_Pos_Z</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <item>
-             <widget class="QLabel" name="label_10">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
+             <widget class="QLabel" name="label_2">
               <property name="text">
                <string>Y</string>
               </property>
-              <property name="textFormat">
-               <enum>Qt::AutoText</enum>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_Y_N">
+              <property name="text">
+               <string>-</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
+             <widget class="QPushButton" name="pushButton_JOG_Y_P">
               <property name="text">
-               <string>Cur_Pos_Y</string>
+               <string>+</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_Y_H">
+              <property name="text">
+               <string>HOME</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Z</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_Z_N">
+              <property name="text">
+               <string>-</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_Z_P">
+              <property name="text">
+               <string>+</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_JOG_Z_H">
+              <property name="text">
+               <string>HOME</string>
               </property>
              </widget>
             </item>
@@ -197,191 +372,78 @@
           </item>
          </layout>
         </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_12">
-          <property name="text">
-           <string>GO</string>
-          </property>
-         </widget>
-        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="font">
-         <font>
-          <family>微軟正黑體</family>
-          <pointsize>16</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>JOG_PANEL</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_8">
-        <item>
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>MODE</string>
-          </property>
-         </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Attributes</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <item>
+             <widget class="QLabel" name="label_15">
+              <property name="text">
+               <string>Attribute</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_STAT_ATTR"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>Value</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_STAT_VAL">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
-        <item>
-         <widget class="QComboBox" name="comboBox">
-          <item>
-           <property name="text">
-            <string>Continous</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>1mm</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0.1mm</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0.01mm</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0.001mm</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Input</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
-        <item>
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>FEEDRATE</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSlider" name="horizontalSlider_jog_feedrate">
+        <item row="0" column="1">
+         <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-         </widget>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>X</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="text">
-           <string>HOME</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Y</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_7">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_8">
-          <property name="text">
-           <string>HOME</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Z</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_9">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_10">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_11">
-          <property name="text">
-           <string>HOME</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -390,7 +452,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>360</width>
+     <width>440</width>
      <height>21</height>
     </rect>
    </property>

@@ -1,0 +1,9 @@
+{
+    "python.autoComplete.extraPaths": [
+    ".qt_for_python\\uic"
+    ],
+    "python.analysis.extraPaths": [
+        ".qt_for_python\\uic"
+    ],
+    "python.analysis.symbolsHierarchyDepthLimit": 15
+}

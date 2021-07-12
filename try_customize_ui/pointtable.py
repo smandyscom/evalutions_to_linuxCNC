@@ -15,6 +15,8 @@ _model.setTable('pointtable')
 _model.setEditStrategy(QSqlTableModel.EditStrategy.OnFieldChange)
 _model.select()
 
+#https://stackoverflow.com/questions/880530/can-modules-have-properties-the-same-way-that-objects-can
+
 def __getattr__(name):
     if name=='Model':
         return _model
