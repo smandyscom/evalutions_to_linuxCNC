@@ -9,11 +9,13 @@ sys.path.append(r'.qt_for_python\uic')
 sys.path.append(r'.qt_for_python/uic')
 import typing
 
-from PyQt5.QtCore import QModelIndex, qAbs
+from PyQt5.QtCore import QModelIndex, qAbs, Qt
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget
-from PyQt5.QtSql import QSqlTableModel,QSqlDatabase
+from PyQt5.QtSql import QSqlRecord, QSqlTableModel,QSqlDatabase
 from os.path import exists,join
+
+from random import random
 
 cwd = getcwd()
 
@@ -34,11 +36,25 @@ class Window(QMainWindow, Ui_MainWindow):
 
         model = QSqlTableModel(self)
         model.setTable('pointtable')
+        model.setEditStrategy(QSqlTableModel.EditStrategy.OnManualSubmit)
         model.select()
 
         self.setupUi(self) # statical way to load .ui file, have to use pyuic.exe to generate ui.py first
 
-        self.tableView.setModel(model)
+        #self.tableView.setModel(model)
+
+        ''' model.setRecord(0,model.record(0).setValue('X',random()))
+        model.setRecord(0,model.record(1).setValue('Y',random())) '''
+        index = model.index(1,2)
+        row = index.row()
+        model.setData(index,random(),Qt.EditRole) 
+        #Q : why all row were set??
+        #A : without primary key would result such error.
+
+        if model.submitAll() :
+            model.database().commit()
+        else : 
+            error = model.lastError().text()
 
         pass
 
