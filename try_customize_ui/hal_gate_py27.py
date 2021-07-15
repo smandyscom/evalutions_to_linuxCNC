@@ -20,18 +20,35 @@ if _is_hal_existed :
     def hal_set_value(pin_name,value):
         return hal.set_p(pin_name,str(value)) # write value must be string
 
-    attr_list = None
+    stats_attr_list = None
+    command_attr_list = None
     def linuxcnc_read_stat(attr):
-        stat = linuxcnc.stat() # create a connection to the status channel
-        stat.poll() # get current values
+        global stats_attr_list
 
-        if attr_list is None :
-            attr_list = [x for x in dir(stat) if not x.startswith('_')]
+        stat_channel = linuxcnc.stat() # create a connection to the status channel
+        stat_channel.poll() # get current values
 
-        if attr in attr_list:
-            return getattr(stat,attr)
+        if stats_attr_list is None :
+            stats_attr_list = [x for x in dir(stat_channel) if not x.startswith('_')]
+
+        if attr in stats_attr_list:
+            return getattr(stat_channel,attr)
         
         return 0
+
+    def linuxcnc_command(cmd,*args):
+        global command_attr_list
+
+        command_channel = linuxcnc.command()
+
+        if command_attr_list is None:
+            command_attr_list = [x for x in dir(command_channel) if not x.startswith('_')]
+        
+        if cmd in command_attr_list :
+            return getattr(command_channel,cmd)(args)
+        
+        return 0
+
 
 def dummy_echo(arg):
     return arg
