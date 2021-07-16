@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 from __future__ import print_function
 from imp import find_module
-from os import getpid, startfile
+from os import getpid
 
 try :
     find_module('hal') 
@@ -58,10 +58,16 @@ def is_hal_existed():
 
 
 if __name__ == '__main__':
+
+    linuxcnc_read_stat('empty')
+    linuxcnc_command('empty')
+
     from random import random
     value = hal_read_value('joint.0.pos-fb')
     hal_set_value('motion.analog-in-00',random())
     hal_set_value('motion.digital-in-00',1) # for boolean type this is ok
     hal_set_value('motion.digital-in-00',False) # for boolean type this is ok
     instanized_comp.exit() # this will kill components
+
+    
     pass
