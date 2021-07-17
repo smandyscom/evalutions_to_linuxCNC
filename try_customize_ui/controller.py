@@ -5,6 +5,11 @@ from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 from random import random
 import pointtable
 
+
+JOG_STOP = 0
+JOG_CONTINUOUS = 1
+JOG_INCREMENT = 2
+
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(str)
 
@@ -81,7 +86,11 @@ class Controller(QObject):
         self.updatePosIndex.emit(str(self._interface.read_pos_index()))
         self.updateTriggerSignal.emit(self._interface.read_trigger())
         pass
-    
+
+
+    def onJogCommand(self,mode,joint,velocity=0,distance=0):
+        pass
+
     """  #event handler to QTimer
     def onTimerTimeout_run_handshake(self):
         if self._state == 0 and self._interface.read_trigger():
