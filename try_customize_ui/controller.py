@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 
 from random import random
 import pointtable
+from hardwaregate import HardwardGate
 
 
 JOG_STOP = 0
@@ -19,24 +20,20 @@ class SignalCarrier(QObject):
 
 class Controller(QObject):
 
-    updateTriggerSignal = pyqtSignal(bool) #QLabel should be promoted to have corrsponding slot
-    updatePosIndex = pyqtSignal(str)
-    updatePosTable = pyqtSignal(int,str) #index, and position content
+    updateInPosition = pyqtSignal(bool)
 
     def __init__(self, parent: typing.Optional['QObject']) -> None:
         super().__init__(parent=parent)
 
+        self._hardware_gate = HardwardGate()
+
         dof3 = range(0,3)
         dof2 = range(0,2)
         self.updateCurrentPositions = [SignalCarrier(self) for x in dof3]
-        self.updateVisionPositions = [SignalCarrier(self) for x in dof2]
-
-        # wrong way which would multiple handles to link only one instance 
-        # self.updateVisionPositions = [SignalCarrier(self)]*3 
         
         #Timer to update/run sequence
         self.qTimer = QTimer(parent=self)
-        self.qTimer.timeout.connect(self.onTimerTimeout_update_ui)
+        self.qTimer.timeout.connect(self.onUpdate)
         self.qTimer.setInterval(200)
         self.qTimer.start()
 
@@ -73,22 +70,25 @@ class Controller(QObject):
         #TODO , trigger or MDI to drive
         pass
 
-    """ def onTimerTimeout_dice_values(self):
-        self._interface.dice_values()
-        pass """
+    @pyqtSlot()
+    def onUpdate(self):
+        self._mach_positions = [self._hardware_gate.hal_read_pin('joint.{}.pos-fb'.format(x)) for x in range(0,3)]
 
-    def onTimerTimeout_update_ui(self):
-        #self._mach_positions = self._interface.read_pos_current_mach()
-        for index in range(len(self.updateCurrentPositions)):
+        [self.updateCurrentPositions[self._mach_positions.index(x)].updatePost.emit(str(x)) for x in self._mach_positions]
+
+        '''Timed signals'''
+        #raise in position signal
+        self.updateInPosition.emit(bool(self._hardware_gate.linuxcnc_read_stat('inpos')))
+
+        """ for index in range(len(self.updateCurrentPositions)):
             value = self._mach_position[index]
-            self.updateCurrentPositions[index].updatePost.emit(str(value))
+            self.updateCurrentPositions[index].updatePost.emit(str(value)) """
         
-        self.updatePosIndex.emit(str(self._interface.read_pos_index()))
-        self.updateTriggerSignal.emit(self._interface.read_trigger())
         pass
 
 
     def onJogCommand(self,mode,joint,velocity=0,distance=0):
+        self._hardware_gate.linuxcnc_command('jog',mode,True,joint,velocity,distance)
         pass
 
     """  #event handler to QTimer
