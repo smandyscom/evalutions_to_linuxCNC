@@ -82,11 +82,13 @@ class HardwardGate(object):
         self._hal_channel_write.send([pin_name,str(value)])
         return self._hal_channel_write.receive()
 
-    def _real_linuxcnc_read_stat(self):
-        pass
+    def _real_linuxcnc_read_stat(self,attr_name : str):
+        self._linuxcnc_channel_read_stat.send([attr_name])
+        return self._linuxcnc_channel_read_stat.receive()
 
-    def _real_linuxcnc_command(self):
-        pass
+    def _real_linuxcnc_command(self,cmd_name : str, *args):
+        self._linuxcnc_channel_command.send([cmd_name,args])
+        return self._linuxcnc_channel_command.receive()
 
     def _dummy_hal_read_pin(self,pin_name : str):
 
@@ -112,10 +114,10 @@ class HardwardGate(object):
     def _dummy_hal_write_pin(self,pin_name,value):
         return 1
 
-    def _dummy_linuxcnc_read_stat(self):
+    def _dummy_linuxcnc_read_stat(self,attr_name : str):
         return 1
 
-    def _dummy_linuxcnc_command(self):
+    def _dummy_linuxcnc_command(self,cmd_name : str, *args):
         return 1
     
     """ def hal_read_current_pos(self):
