@@ -247,11 +247,6 @@
                 <string>0.001mm</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string>Input</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>
