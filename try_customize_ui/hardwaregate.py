@@ -12,6 +12,11 @@ class HardwardGate(object):
 
         self.linuxcnc_command_attr_list = []
         self.linuxcnc_stats_attr_list = []
+        #create attribute list
+        for x in ['linuxcnc_command_attr_list','linuxcnc_stats_attr_list']:
+            channel = self._create_channel('hal_gate_py27',x,python_version='2.7', selection='one_shot')
+            channel.send([])
+            self.__setattr__(x,list(channel.receive()))
         
         #setup dummy functions as default
         self.hal_read_pin = self._dummy_hal_read_pin
@@ -19,7 +24,7 @@ class HardwardGate(object):
         self.linuxcnc_read_stat = self._dummy_linuxcnc_read_stat
         self.linuxcnc_command = self._dummy_linuxcnc_command
 
-        if self.is_hal_existed() :
+        if self._is_hal_existed() :
             
             self._hal_channel_read = self._create_channel('hal_gate_py27','hal_read_value',python_version='2.7')
             self._hal_channel_write = self._create_channel('hal_gate_py27', 'hal_set_value',python_version='2.7')
@@ -54,18 +59,17 @@ class HardwardGate(object):
 
         #reference
         #'https://stackoverflow.com/questions/27863832/calling-python-2-script-from-python-3'
-        gateway = makegateway('popen//python=python{}'.format(python_version))
+        try:
+            gateway = makegateway('popen//python=python{}'.format(python_version))
+        except :
+            gateway = makegateway()
         channel = gateway.remote_exec(context.format(module_name,function_name))
         return channel
     
-    def is_hal_existed(self):
+    def _is_hal_existed(self):
         #check from python 2.y if hal existed
         try :
-            #create attribute list
-            for x in ['linuxcnc_command_attr_list','linuxcnc_stats_attr_list']:
-                channel = self._create_channel('hal_gate_py27',x,python_version='2.7', selection='one_shot')
-                channel.send([])
-                self.__setattr__(x,list(channel.receive()))
+            
 
             channel = self._create_channel('hal_gate_py27','is_hal_existed',python_version='2.7', selection='one_shot')
             channel.send([])
@@ -104,7 +108,8 @@ class HardwardGate(object):
 
         if 'pos-fb' in pin_name:
             _simu_dice_pos_values()
-            return self._dummy_pos_current_mach[pin_name.split('.')[1]]
+            index = int(pin_name.split('.')[1])
+            return self._dummy_pos_current_mach[index]
             pass
         elif False :
             pass
