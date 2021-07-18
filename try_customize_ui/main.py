@@ -46,6 +46,11 @@ class Window(QMainWindow, Ui_MainWindow):
             self.pushButton_JOG_Z_N : (2,-1),
         }
 
+        """ link signal from Controller """
+        self._controller.updateCurrentPositions[0].updatePost.connect(self.lineEdit_CUR_X.setText)
+        self._controller.updateCurrentPositions[1].updatePost.connect(self.lineEdit_CUR_Y.setText)
+        self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
+
         pass
 
     def initTabl1(self):

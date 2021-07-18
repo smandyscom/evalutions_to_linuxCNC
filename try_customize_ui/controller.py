@@ -27,6 +27,7 @@ class Controller(QObject):
 
         self._hardware_gate = HardwardGate()
 
+
         dof3 = range(0,3)
         dof2 = range(0,2)
         self.updateCurrentPositions = [SignalCarrier(self) for x in dof3]
@@ -56,8 +57,6 @@ class Controller(QObject):
     #Fetch value from machine then write-in
     @pyqtSlot()
     def onTeachButtonClicked(self):
-        
-
         for key in self._dict:
             self._selectedRecord.setValue(key,self._mach_position[self._dict[key]])
         self._model.setRecord(self._selectedRow,self._selectedRecord)
@@ -65,9 +64,11 @@ class Controller(QObject):
 
     @pyqtSlot()
     def onReplayButtonClicked(self):
+        commandPosition = [float()]*3
         for key in self._dict:
-            self._command_position[self._dict[key]] = float(self._selectedRecord.value(key))
-        #TODO , trigger or MDI to drive
+            commandPosition[self._dict[key]] = float(self._selectedRecord.value(key))
+        #trigger or MDI to drive
+        self.onMDIG00(commandPosition)
         pass
 
     @pyqtSlot()
@@ -86,10 +87,20 @@ class Controller(QObject):
         
         pass
 
+    @pyqtSlot()
+    def onMDIG00(self,command_pos=[0,0,0]):
+        """ def ok_for_mdi():
+        s.poll()
+            return not s.estop and s.enabled and (s.homed.count(1) == s.joints) and (s.interp_state == linuxcnc.INTERP_IDLE) """
+
+        mdi_command = 'G00 X{} Y{} Z{}'.format(*command_pos)
+        self._hardware_gate.linuxcnc_command('mdi',mdi_command)
+        pass
 
     def onJogCommand(self,mode,joint,velocity=0,distance=0):
         self._hardware_gate.linuxcnc_command('jog',mode,True,joint,velocity,distance)
         pass
+
 
     """  #event handler to QTimer
     def onTimerTimeout_run_handshake(self):
