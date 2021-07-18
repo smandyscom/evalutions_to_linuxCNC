@@ -45,12 +45,13 @@ class Controller(QObject):
         'Y':1,
         'Z':2}
 
+
         pass
 
     #When modelview changed modelindex, cache
-    @pyqtSlot()
+    @pyqtSlot(QItemSelection,QItemSelection)
     def onSelectedItemChanged(self,selected : QItemSelection, deselected : QItemSelection):
-        self._selectedRow = selected.indexes[0].row()
+        self._selectedRow = selected.indexes()[0].row() #choose the first of selected row
         self._selectedRecord = self._model.record(self._selectedRow)
         pass
 
@@ -58,7 +59,7 @@ class Controller(QObject):
     @pyqtSlot()
     def onTeachButtonClicked(self):
         for key in self._dict:
-            self._selectedRecord.setValue(key,self._mach_position[self._dict[key]])
+            self._selectedRecord.setValue(key,self._mach_positions[self._dict[key]])
         self._model.setRecord(self._selectedRow,self._selectedRecord)
         pass
 

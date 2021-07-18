@@ -51,15 +51,18 @@ class Window(QMainWindow, Ui_MainWindow):
         self._controller.updateCurrentPositions[1].updatePost.connect(self.lineEdit_CUR_Y.setText)
         self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
 
+        self.pushButton_TEACH.clicked.connect(self._controller.onTeachButtonClicked)
+
         pass
 
     def initTabl1(self):
         self.pushButton_TEACH.setEnabled(False)
         self.tableView.selectionModel().selectionChanged.connect(self.onTableViewSelected)
+        self.tableView.selectionModel().selectionChanged.connect(self._controller.onSelectedItemChanged)
         pass
 
-    @pyqtSlot()
-    def onTableViewSelected(self,selected : QItemSelection,deselected):
+    @pyqtSlot(QItemSelection,QItemSelection)
+    def onTableViewSelected(self,selected : QItemSelection,deselected : QItemSelection):
         self.pushButton_TEACH.setEnabled(len(selected.indexes())>0)
         pass
 
