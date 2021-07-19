@@ -11,7 +11,7 @@ import typing
 
 from PyQt5.QtCore import QModelIndex, pyqtSlot, qAbs, Qt, pyqtSignal, pyqtSlot, QItemSelection
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget,QPushButton,QLineEdit
 
 
 import pointtable
@@ -43,7 +43,7 @@ class Window(QMainWindow, Ui_MainWindow):
             self.pushButton_JOG_Z_P : (2,1),
             self.pushButton_JOG_X_N : (0,-1),
             self.pushButton_JOG_Y_N : (1,-1),
-            self.pushButton_JOG_Z_N : (2,-1),
+            self.pushButton_JOG_Z_N : (2,-1)
         }
 
         """ link signal from Controller """
@@ -52,6 +52,13 @@ class Window(QMainWindow, Ui_MainWindow):
         self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
 
         self.pushButton_TEACH.clicked.connect(self._controller.onTeachButtonClicked)
+
+        the_list = self.findChildren(QPushButton)
+        for excepts in [self.pushButton_SRV_ON,self.pushButton_UNLLOCK,self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H]:
+            the_list.remove(excepts)
+        the_list += self.findChildren(QLineEdit)
+        for widget in the_list:
+            self._controller.updateStatus['in-pos'].updatePost.connect(widget.setEnabled)        
 
         pass
 

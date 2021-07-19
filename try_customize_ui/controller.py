@@ -44,12 +44,12 @@ class Controller(QObject):
         self._coordinate_dict = {
             'X':    0,
             'Y':    1,
-            'Z':    2,
+            'Z':    2
             }
         
         self._status_dict = {}
         self.updateStatus = {}
-        for x in ['estop','enabled','homed','joints','interp_state']:
+        for x in ['estop','enabled','homed','joints','interp_state','in-pos']:
             self._status_dict[x] = None
         for key in self._status_dict.keys():
             self.updateStatus[key] = SignalCarrier(self)
@@ -88,19 +88,10 @@ class Controller(QObject):
         [self.updateCurrentPositions[self._mach_positions.index(x)].updatePost.emit(str(x)) for x in self._mach_positions]
 
         '''Timed signals'''
-        #raise in position signal
-        self.updateInPosition.emit(bool(self._hardware_gate.linuxcnc_read_stat('inpos')))
-
         #update status values
         for key in self._status_dict.keys():
             self._status_dict[key] = self._hardware_gate.linuxcnc_read_stat(key)
             self.updateStatus[key].updatePost.emit(self._status_dict[key])
-        pass
-
-        """ for index in range(len(self.updateCurrentPositions)):
-            value = self._mach_position[index]
-            self.updateCurrentPositions[index].updatePost.emit(str(value)) """
-        
         pass
 
     @pyqtSlot(list)
@@ -120,43 +111,3 @@ class Controller(QObject):
 
     def _ismdiok(self):
         return bool(self._status_dict['estop']) and bool(self._status_dict['enabled']) and (len(self._status_dict['homed']) == self._status_dict['joints']) and self._status_dict['interp_state']==0    
-
-    """  #event handler to QTimer
-    def onTimerTimeout_run_handshake(self):
-        if self._state == 0 and self._interface.read_trigger():
-            self._state = 100
-
-        elif self._state == 100 and self._interface.read_ackowledge():
-
-            pos_index = self._interface.read_pos_index() #read from CNC
-            self._mach_position = self._interface.read_pos_current_mach()
-            #Simulation to TRIGGER Vision capture process
-            vision_pos = self.onSimuTriggerVision()
-
-            #write into MODEL according to POS_INDEX
-            if pos_index >= 0:
-                given_tuple = tuple(self._mach_position[0:2]+vision_pos[0:2])
-                self.model.points = (int(pos_index),given_tuple)
-
-            #update to see if any have positve result
-            result = []
-            update_to = self.updateWkCoord
-            if pos_index in range(0,9):
-                result = self.evaluateToolCoordinate()
-                update_to = self.updateToolCoord
-            elif pos_index in range(9,13):
-                result =  self.evaluateWorkpieceCoordinate()
-                update_to = self.updateWkCoord
-                
-
-            self._interface.write_pos_comp_mach(list(result))
-            [update_to[x].updatePost.emit(str(result[x])) for x in range(len(result))]
-
-            self._state = 200
-
-        elif self._state == 200 and self._interface.read_trigger()==False:
-            self._interface.write_acknowledge(False)
-            self._state = 0 # to await signal rewind
-        pass """
-
-    
