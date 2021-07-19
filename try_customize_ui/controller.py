@@ -12,7 +12,7 @@ JOG_CONTINUOUS = 1
 JOG_INCREMENT = 2
 
 class SignalCarrier(QObject):
-    updatePost = pyqtSignal(str)
+    updatePost = pyqtSignal(object)
 
     def __init__(self, parent: typing.Optional['QObject']) -> None:
         super().__init__(parent=parent)
@@ -41,9 +41,18 @@ class Controller(QObject):
         self._tuple_substract = lambda x,y: (x[0]-y[0],x[1]-y[1])
 
         self._model = pointtable.Model
-        self._dict = {'X': 0,
-        'Y':1,
-        'Z':2}
+        self._coordinate_dict = {
+            'X':    0,
+            'Y':    1,
+            'Z':    2,
+            }
+        
+        self._status_dict = {}
+        self.updateStatus = {}
+        for x in ['estop','enabled','homed','joints','interp_state']:
+            self._status_dict[x] = None
+        for key in self._status_dict.keys():
+            self.updateStatus[key] = SignalCarrier(self)
 
 
         pass
@@ -58,16 +67,16 @@ class Controller(QObject):
     #Fetch value from machine then write-in
     @pyqtSlot()
     def onTeachButtonClicked(self):
-        for key in self._dict:
-            self._selectedRecord.setValue(key,self._mach_positions[self._dict[key]])
+        for key in self._coordinate_dict:
+            self._selectedRecord.setValue(key,self._mach_positions[self._coordinate_dict[key]])
         self._model.setRecord(self._selectedRow,self._selectedRecord)
         pass
 
     @pyqtSlot()
     def onReplayButtonClicked(self):
         commandPosition = [float()]*3
-        for key in self._dict:
-            commandPosition[self._dict[key]] = float(self._selectedRecord.value(key))
+        for key in self._coordinate_dict:
+            commandPosition[self._coordinate_dict[key]] = float(self._selectedRecord.value(key))
         #trigger or MDI to drive
         self.onMDIG00(commandPosition)
         pass
@@ -82,26 +91,35 @@ class Controller(QObject):
         #raise in position signal
         self.updateInPosition.emit(bool(self._hardware_gate.linuxcnc_read_stat('inpos')))
 
+        #update status values
+        for key in self._status_dict.keys():
+            self._status_dict[key] = self._hardware_gate.linuxcnc_read_stat(key)
+            self.updateStatus[key].updatePost.emit(self._status_dict[key])
+        pass
+
         """ for index in range(len(self.updateCurrentPositions)):
             value = self._mach_position[index]
             self.updateCurrentPositions[index].updatePost.emit(str(value)) """
         
         pass
 
-    @pyqtSlot()
+    @pyqtSlot(list)
     def onMDIG00(self,command_pos=[0,0,0]):
         """ def ok_for_mdi():
         s.poll()
             return not s.estop and s.enabled and (s.homed.count(1) == s.joints) and (s.interp_state == linuxcnc.INTERP_IDLE) """
 
-        mdi_command = 'G00 X{} Y{} Z{}'.format(*command_pos)
-        self._hardware_gate.linuxcnc_command('mdi',mdi_command)
+        if self._ismdiok():
+            mdi_command = 'G00 X{} Y{} Z{}'.format(*command_pos)
+            self._hardware_gate.linuxcnc_write_command('mdi',mdi_command)
         pass
 
     def onJogCommand(self,mode,joint,velocity=0,distance=0):
-        self._hardware_gate.linuxcnc_command('jog',mode,True,joint,velocity,distance)
+        self._hardware_gate.linuxcnc_write_command('jog',mode,True,joint,velocity,distance)
         pass
 
+    def _ismdiok(self):
+        return bool(self._status_dict['estop']) and bool(self._status_dict['enabled']) and (len(self._status_dict['homed']) == self._status_dict['joints']) and self._status_dict['interp_state']==0    
 
     """  #event handler to QTimer
     def onTimerTimeout_run_handshake(self):

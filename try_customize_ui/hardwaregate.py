@@ -22,7 +22,7 @@ class HardwardGate(object):
         self.hal_read_pin = self._dummy_hal_read_pin
         self.hal_write_pin = self._dummy_hal_write_pin
         self.linuxcnc_read_stat = self._dummy_linuxcnc_read_stat
-        self.linuxcnc_command = self._dummy_linuxcnc_command
+        self.linuxcnc_write_command = self._dummy_linuxcnc_command
 
         if self._is_hal_existed() :
             
@@ -36,7 +36,7 @@ class HardwardGate(object):
             self.hal_read_pin = self._real_hal_read_pin
             self.hal_write_pin = self._real_hal_write_pin
             self.linuxcnc_read_stat = self._real_linuxcnc_read_stat
-            self.linuxcnc_command = self._real_linuxcnc_command
+            self.linuxcnc_write_command = self._real_linuxcnc_command
 
             pass
         pass
