@@ -31,6 +31,12 @@ class Window(QMainWindow, Ui_MainWindow):
         self._controller = Controller(self)
 
         self.initTabl1()
+        pass
+
+    def initTabl1(self):
+        self.pushButton_TEACH.setEnabled(False)
+        self.tableView.selectionModel().selectionChanged.connect(self.onTableViewSelected)
+        self.tableView.selectionModel().selectionChanged.connect(self._controller.onSelectedItemChanged)
 
         self.comboBox_MODE_SEL.setItemData(0,(JOG_CONTINUOUS,0))
         self.comboBox_MODE_SEL.setItemData(1,(JOG_INCREMENT,float(1)))
@@ -43,29 +49,37 @@ class Window(QMainWindow, Ui_MainWindow):
             self.pushButton_JOG_Z_P : (2,1),
             self.pushButton_JOG_X_N : (0,-1),
             self.pushButton_JOG_Y_N : (1,-1),
-            self.pushButton_JOG_Z_N : (2,-1)
+            self.pushButton_JOG_Z_N : (2,-1),
         }
+        for key in self._dict_join_and_direction.keys():
+            key.clicked.connect(self.onJogButtonClicked)
+            key.pressed.connect(self.onJogButtonPressed)
+            key.released.connect(self.onJogButtonReleased)
+        
+        """ link signal TO Controller """
+        for homebutton in [self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H]:
+            homebutton.clicked.connect(self._controller.onHomeCommand)
+        
+        self.pushButton_TEACH.clicked.connect(self._controller.onTeachButtonClicked)
+        self.pushButton_REPLAY.clicked.connect(self._controller.onReplayButtonClicked)
 
-        """ link signal from Controller """
+        """ self.pushButton_SRV_ON.clicked.connect(self._controller)
+        self.pushButton_UNLLOCK.clicked.connect(self._controller) """
+
+        self.pushButton_GO.clicked(self.onDirectGoClicked) #TODO, when to enable lineEdit to be changed?
+        
+        """ link signal FROM Controller """
         self._controller.updateCurrentPositions[0].updatePost.connect(self.lineEdit_CUR_X.setText)
         self._controller.updateCurrentPositions[1].updatePost.connect(self.lineEdit_CUR_Y.setText)
         self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
 
-        self.pushButton_TEACH.clicked.connect(self._controller.onTeachButtonClicked)
-
         the_list = self.findChildren(QPushButton)
-        for excepts in [self.pushButton_SRV_ON,self.pushButton_UNLLOCK,self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H]:
+        for excepts in [self.pushButton_SRV_ON,self.pushButton_UNLLOCK,self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H,self.pushButton_TEACH]:
             the_list.remove(excepts)
         the_list += self.findChildren(QLineEdit)
         for widget in the_list:
-            self._controller.updateStatus['in-pos'].updatePost.connect(widget.setEnabled)        
+            self._controller.updateCombinedStatus['is_mdi_ok'].updatePost.connect(widget.setEnabled)        
 
-        pass
-
-    def initTabl1(self):
-        self.pushButton_TEACH.setEnabled(False)
-        self.tableView.selectionModel().selectionChanged.connect(self.onTableViewSelected)
-        self.tableView.selectionModel().selectionChanged.connect(self._controller.onSelectedItemChanged)
         pass
 
     @pyqtSlot(QItemSelection,QItemSelection)
@@ -91,6 +105,7 @@ class Window(QMainWindow, Ui_MainWindow):
         pass
 
     #The continoues mode - GO
+    @pyqtSlot()
     def onJogButtonPressed(self):
         if self.comboBox_MODE_SEL.currentData()[0] == JOG_INCREMENT :
             return 
@@ -105,10 +120,19 @@ class Window(QMainWindow, Ui_MainWindow):
         pass
 
     #The continuoues mode - Stop
+    @pyqtSlot()
     def onJogButtonReleased(self):
         _selected_joint = self._dict_join_and_direction[self.sender()][0]
         self._controller.onJogCommand(JOG_STOP,_selected_joint)
         pass
+
+    @pyqtSlot()
+    def onDirectGoClicked(self):
+        _coords = [float(x.text()) for x in self.findChildren(QLineEdit)]
+        self._controller.onMDIG00(_coords)
+        pass
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

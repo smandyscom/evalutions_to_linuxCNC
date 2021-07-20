@@ -120,6 +120,8 @@ class HardwardGate(object):
         return 1
 
     def _dummy_linuxcnc_read_stat(self,attr_name : str):
+        if 'homed' in attr_name :
+            return [bool(True)]*len(self._dummy_pos_current_mach)
         return 1
 
     def _dummy_linuxcnc_command(self,cmd_name : str, *args):
