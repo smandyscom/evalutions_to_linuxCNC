@@ -4,7 +4,7 @@ from imp import find_module
 from os import getpid
 
 #default as non-sense list
-_linuxcnc_stats_attr_list = ['attr{}'.format(x) for x in range(0,10)]
+_linuxcnc_stats_attr_list = ['estop','enabled','homed','joints','interp_state','in-pos','task_state','task_mode']
 _linuxcnc_command_attr_list = ['command{}'.format(x) for x in range(0,10)]
 
 try :

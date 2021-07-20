@@ -9,7 +9,7 @@ sys.path.append(r'.qt_for_python\uic')
 sys.path.append(r'.qt_for_python/uic')
 import typing
 
-from PyQt5.QtCore import QModelIndex, pyqtSlot, qAbs, Qt, pyqtSignal, pyqtSlot, QItemSelection
+from PyQt5.QtCore import QModelIndex, QObject, pyqtSlot, qAbs, Qt, pyqtSignal, pyqtSlot, QItemSelection
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox, QTableWidgetItem, QWidget,QPushButton,QLineEdit
 
@@ -30,10 +30,11 @@ class Window(QMainWindow, Ui_MainWindow):
         self.tableView.setModel(pointtable.Model)
         self._controller = Controller(self)
 
-        self.initTabl1()
+        self.initTab1()
+        self.initTab2()
         pass
 
-    def initTabl1(self):
+    def initTab1(self):
         self.pushButton_TEACH.setEnabled(False)
         self.tableView.selectionModel().selectionChanged.connect(self.onTableViewSelected)
         self.tableView.selectionModel().selectionChanged.connect(self._controller.onSelectedItemChanged)
@@ -66,15 +67,15 @@ class Window(QMainWindow, Ui_MainWindow):
         """ self.pushButton_SRV_ON.clicked.connect(self._controller)
         self.pushButton_UNLLOCK.clicked.connect(self._controller) """
 
-        self.pushButton_GO.clicked(self.onDirectGoClicked) #TODO, when to enable lineEdit to be changed?
+        self.pushButton_GO.clicked.connect(self.onDirectGoClicked) #TODO, when to enable lineEdit to be changed?
         
         """ link signal FROM Controller """
         self._controller.updateCurrentPositions[0].updatePost.connect(self.lineEdit_CUR_X.setText)
         self._controller.updateCurrentPositions[1].updatePost.connect(self.lineEdit_CUR_Y.setText)
         self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
 
-        self._controller.updateNativeStatus['task_mode'].updatePost.connect(self.label_TASK_MODE.setText)
-        self._controller.updateNativeStatus['task_state'].updatePost.connect(self.label_TASK_STATE.setText)
+        self._controller.updateNativeStatus['task_mode'].updatePost.connect(lambda x: self.label_TASK_MODE.setText(str(x)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : self.label_TASK_STATE.setText(str(x)))
 
         the_list = self.findChildren(QPushButton)
         for excepts in [self.pushButton_SRV_ON,self.pushButton_UNLLOCK,self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H,self.pushButton_TEACH]:
@@ -83,6 +84,33 @@ class Window(QMainWindow, Ui_MainWindow):
         for widget in the_list:
             self._controller.updateCombinedStatus['is_mdi_ok'].updatePost.connect(widget.setEnabled)        
 
+        pass
+
+    def initTab2(self):
+        #populate attributes
+        for item in self._controller._hardware_gate.linuxcnc_stats_attr_list:
+            self.comboBox_ATTR_SELECTION.addItem(str(item))
+
+        self._per_connection = None
+
+        self.comboBox_ATTR_SELECTION.currentTextChanged.connect(self.onAttrSelectionChanged)
+        pass
+
+    @pyqtSlot(str)
+    def onAttrSelectionChanged(self,key : str):
+        #disconnect per link
+        if self._per_connection is not None :
+            QObject.disconnect(self._per_connection)
+        
+        #create new link
+        if key in self._controller.updateNativeStatus.keys():
+            self._per_connection = self._controller.updateNativeStatus[key].updatePost.connect(self.onUpdateStatVal)
+
+        pass
+
+    @pyqtSlot(object)
+    def onUpdateStatVal(self,text):
+        self.label_STAT_VAL.setText(str(text))
         pass
 
     @pyqtSlot(QItemSelection,QItemSelection)

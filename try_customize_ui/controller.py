@@ -51,7 +51,8 @@ class Controller(QObject):
         self.updateNativeStatus = {}
         self.updateCombinedStatus = {}
 
-        for x in ['estop','enabled','homed','joints','interp_state','in-pos','task_state','task_mode']:
+        #TODO , should follow the hardward linuxcnc attributes given
+        for x in self._hardware_gate.linuxcnc_stats_attr_list:
             self._native_status_dict[x] = None
         for key in self._native_status_dict.keys():
             self.updateNativeStatus[key] = SignalCarrier(self)
