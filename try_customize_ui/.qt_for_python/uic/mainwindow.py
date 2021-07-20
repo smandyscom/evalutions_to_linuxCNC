@@ -31,6 +31,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
+        self.label_TASK_STATE = QtWidgets.QLabel(self.tab)
+        self.label_TASK_STATE.setObjectName("label_TASK_STATE")
+        self.horizontalLayout_10.addWidget(self.label_TASK_STATE)
+        self.label_TASK_MODE = QtWidgets.QLabel(self.tab)
+        self.label_TASK_MODE.setObjectName("label_TASK_MODE")
+        self.horizontalLayout_10.addWidget(self.label_TASK_MODE)
         self.pushButton_UNLLOCK = QtWidgets.QPushButton(self.tab)
         self.pushButton_UNLLOCK.setObjectName("pushButton_UNLLOCK")
         self.horizontalLayout_10.addWidget(self.pushButton_UNLLOCK)
@@ -256,6 +262,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label_TASK_STATE.setText(_translate("MainWindow", "TextLabel"))
+        self.label_TASK_MODE.setText(_translate("MainWindow", "TextLabel"))
         self.pushButton_UNLLOCK.setText(_translate("MainWindow", "UNLOCK"))
         self.pushButton_SRV_ON.setText(_translate("MainWindow", "SERVO_ON"))
         self.label_12.setText(_translate("MainWindow", "POINTS_TABLE"))

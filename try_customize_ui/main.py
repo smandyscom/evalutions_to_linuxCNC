@@ -73,6 +73,9 @@ class Window(QMainWindow, Ui_MainWindow):
         self._controller.updateCurrentPositions[1].updatePost.connect(self.lineEdit_CUR_Y.setText)
         self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
 
+        self._controller.updateNativeStatus['task_mode'].updatePost.connect(self.label_TASK_MODE.setText)
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(self.label_TASK_STATE.setText)
+
         the_list = self.findChildren(QPushButton)
         for excepts in [self.pushButton_SRV_ON,self.pushButton_UNLLOCK,self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H,self.pushButton_TEACH]:
             the_list.remove(excepts)

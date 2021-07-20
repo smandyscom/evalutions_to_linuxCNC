@@ -32,6 +32,20 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
+               <widget class="QLabel" name="label_TASK_STATE">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TASK_MODE">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="pushButton_UNLLOCK">
                 <property name="text">
                  <string>UNLOCK</string>

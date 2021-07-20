@@ -51,7 +51,7 @@ class Controller(QObject):
         self.updateNativeStatus = {}
         self.updateCombinedStatus = {}
 
-        for x in ['estop','enabled','homed','joints','interp_state','in-pos']:
+        for x in ['estop','enabled','homed','joints','interp_state','in-pos','task_state','task_mode']:
             self._native_status_dict[x] = None
         for key in self._native_status_dict.keys():
             self.updateNativeStatus[key] = SignalCarrier(self)
