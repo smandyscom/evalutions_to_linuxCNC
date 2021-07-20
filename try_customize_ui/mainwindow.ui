@@ -187,7 +187,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_12">
+             <widget class="QPushButton" name="pushButton_GO">
               <property name="text">
                <string>GO</string>
               </property>
