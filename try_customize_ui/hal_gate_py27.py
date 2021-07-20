@@ -25,14 +25,16 @@ if _is_hal_existed :
         return hal.set_p(pin_name,str(value)) # write value must be string
 
     
+    stat_channel = linuxcnc.stat() # create a connection to the status channel
+    command_channel = linuxcnc.command()
+    _linuxcnc_stats_attr_list = [x for x in dir(stat_channel) if not x.startswith('_')]
+    _linuxcnc_stats_attr_list.remove('poll')
+    _linuxcnc_stats_attr_list.remove('tool_table')
+    _linuxcnc_command_attr_list =   [x for x in dir(command_channel) if not x.startswith('_')]  
     def linuxcnc_read_stat(attr):
         global _linuxcnc_stats_attr_list
 
-        stat_channel = linuxcnc.stat() # create a connection to the status channel
         stat_channel.poll() # get current values
-
-        if _linuxcnc_stats_attr_list is None :
-            _linuxcnc_stats_attr_list = [x for x in dir(stat_channel) if not x.startswith('_')]
 
         if attr in _linuxcnc_stats_attr_list:
             return getattr(stat_channel,attr)
@@ -41,11 +43,6 @@ if _is_hal_existed :
 
     def linuxcnc_command(cmd,*args):
         global _linuxcnc_command_attr_list
-
-        command_channel = linuxcnc.command()
-
-        if _linuxcnc_command_attr_list is None:
-            _linuxcnc_command_attr_list = [x for x in dir(command_channel) if not x.startswith('_')]
         
         if cmd in _linuxcnc_command_attr_list :
             return getattr(command_channel,cmd)(args)
