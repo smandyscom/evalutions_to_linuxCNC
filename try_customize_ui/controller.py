@@ -47,21 +47,29 @@ class Controller(QObject):
             'Z':    2
             }
         
-        self._status_dict = {}
-        self.updateStatus = {}
-        for x in ['estop','enabled','homed','joints','interp_state','in-pos']:
-            self._status_dict[x] = None
-        for key in self._status_dict.keys():
-            self.updateStatus[key] = SignalCarrier(self)
+        self._native_status_dict = {}
+        self.updateNativeStatus = {}
+        self.updateCombinedStatus = {}
 
+        for x in ['estop','enabled','homed','joints','interp_state','in-pos']:
+            self._native_status_dict[x] = None
+        for key in self._native_status_dict.keys():
+            self.updateNativeStatus[key] = SignalCarrier(self)
+
+        self._combined_status_dict = {
+            'is_mdi_ok' : self._ismdiok
+        }
+        for key in self._combined_status_dict.keys():
+            self.updateCombinedStatus[key] = SignalCarrier(self)
 
         pass
 
     #When modelview changed modelindex, cache
     @pyqtSlot(QItemSelection,QItemSelection)
     def onSelectedItemChanged(self,selected : QItemSelection, deselected : QItemSelection):
-        self._selectedRow = selected.indexes()[0].row() #choose the first of selected row
-        self._selectedRecord = self._model.record(self._selectedRow)
+        if len(selected.indexes()) > 0:
+            self._selectedRow = selected.indexes()[0].row() #choose the first of selected row
+            self._selectedRecord = self._model.record(self._selectedRow)
         pass
 
     #Fetch value from machine then write-in
@@ -89,10 +97,15 @@ class Controller(QObject):
 
         '''Timed signals'''
         #update status values
-        for key in self._status_dict.keys():
-            self._status_dict[key] = self._hardware_gate.linuxcnc_read_stat(key)
-            self.updateStatus[key].updatePost.emit(self._status_dict[key])
+        for key in self._native_status_dict.keys():
+            self._native_status_dict[key] = self._hardware_gate.linuxcnc_read_stat(key)
+            self.updateNativeStatus[key].updatePost.emit(self._native_status_dict[key])
+            pass
+
+        for key in self._combined_status_dict.keys():
+            self.updateCombinedStatus[key].updatePost.emit(self._combined_status_dict[key]())
         pass
+
 
     @pyqtSlot(list)
     def onMDIG00(self,command_pos=[0,0,0]):
@@ -105,9 +118,24 @@ class Controller(QObject):
             self._hardware_gate.linuxcnc_write_command('mdi',mdi_command)
         pass
 
+    @pyqtSlot(int,int,float,float)
     def onJogCommand(self,mode,joint,velocity=0,distance=0):
         self._hardware_gate.linuxcnc_write_command('jog',mode,True,joint,velocity,distance)
         pass
 
+    @pyqtSlot()
+    def onHomeCommand(self):
+        #pick first occurance
+        _key = next(key for key in self._coordinate_dict.keys() if key in self.sender().objectName())
+        _joint = self._coordinate_dict[_key]
+        self._hardware_gate.linuxcnc_write_command('home',_joint)
+        pass
+
+    """ def onESTOPCommand(self):
+        pass
+
+    def onAllEnabledCommand(self):
+        pass """
+
     def _ismdiok(self):
-        return bool(self._status_dict['estop']) and bool(self._status_dict['enabled']) and (len(self._status_dict['homed']) == self._status_dict['joints']) and self._status_dict['interp_state']==0    
+        return bool(self._native_status_dict['estop']) and bool(self._native_status_dict['enabled']) and (len(self._native_status_dict['homed']) == self._native_status_dict['joints']) and self._native_status_dict['interp_state']==0    
