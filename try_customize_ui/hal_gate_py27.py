@@ -45,7 +45,7 @@ if _is_hal_existed :
         global _linuxcnc_command_attr_list
         
         if cmd in _linuxcnc_command_attr_list :
-            return getattr(command_channel,cmd)(args)
+            return getattr(command_channel,cmd)(*args)
         
         return 0
 
@@ -67,6 +67,7 @@ if __name__ == '__main__':
 
     linuxcnc_read_stat('empty')
     linuxcnc_command('empty')
+    linuxcnc_command('state',2)
 
     from random import random
     value = hal_read_value('joint.0.pos-fb')

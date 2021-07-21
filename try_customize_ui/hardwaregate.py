@@ -91,7 +91,7 @@ class HardwardGate(object):
         return self._linuxcnc_channel_read_stat.receive()
 
     def _real_linuxcnc_command(self,cmd_name : str, *args):
-        self._linuxcnc_channel_command.send([cmd_name,args])
+        self._linuxcnc_channel_command.send([cmd_name,*args])
         return self._linuxcnc_channel_command.receive()
 
     def _dummy_hal_read_pin(self,pin_name : str):
