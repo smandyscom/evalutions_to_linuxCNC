@@ -76,9 +76,9 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self._controller.updateNativeStatus['task_mode'].updatePost.connect(lambda x: self.label_TASK_MODE.setText(str(x)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : self.label_TASK_STATE.setText(str(x)))
-        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_UNLLOCK.setChecked(x==TaskState.STATE_ESTOP)))
-        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setChecked(x==TaskState.STATE_ON)))
-        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setEnabled(x>=TaskState.STATE_ESTOP_RESET)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_UNLLOCK.setChecked(x==TaskState.STATE_ESTOP.value)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setChecked(x==TaskState.STATE_ON.value)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setEnabled(x>=TaskState.STATE_ESTOP_RESET.value)))
 
 
         the_list = self.findChildren(QPushButton)

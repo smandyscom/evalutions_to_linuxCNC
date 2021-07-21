@@ -13,9 +13,9 @@ JOG_CONTINUOUS = 1
 JOG_INCREMENT = 2
 
 class TaskState(Enum):
-    STATE_ESTOP = 1,
-    STATE_ESTOP_RESET = 2,
-    STATE_ON = 3,
+    STATE_ESTOP = 1
+    STATE_ESTOP_RESET = 2
+    STATE_ON = 3
     STATE_OFF = 4
 
 class SignalCarrier(QObject):
@@ -141,13 +141,13 @@ class Controller(QObject):
 
     @pyqtSlot(bool)
     def onESTOPCommand(self,checked):
-        _next_state = TaskState.STATE_ESTOP if checked else TaskState.STATE_ESTOP_RESET
+        _next_state = TaskState.STATE_ESTOP.value if checked else TaskState.STATE_ESTOP_RESET.value
         self._hardware_gate.linuxcnc_write_command('state',_next_state)
         pass
 
     @pyqtSlot(bool)
     def onEnabledCommand(self,checked):
-        _next_state = TaskState.STATE_ON if checked else TaskState.STATE_OFF
+        _next_state = TaskState.STATE_ON.value if checked else TaskState.STATE_OFF.value
         self._hardware_gate.linuxcnc_write_command('state',_next_state)
         pass
 
