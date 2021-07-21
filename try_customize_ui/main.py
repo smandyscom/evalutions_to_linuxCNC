@@ -74,6 +74,9 @@ class Window(QMainWindow, Ui_MainWindow):
         self._controller.updateCurrentPositions[1].updatePost.connect(self.lineEdit_CUR_Y.setText)
         self._controller.updateCurrentPositions[2].updatePost.connect(self.lineEdit_CUR_Z.setText)
 
+        #name_value_pair = TaskState.STATE_ESTOP 
+        # call enum would return a pair with name,value
+
         self._controller.updateNativeStatus['task_mode'].updatePost.connect(lambda x: self.label_TASK_MODE.setText(str(x)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : self.label_TASK_STATE.setText(str(x)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_UNLLOCK.setChecked(x==TaskState.STATE_ESTOP.value)))
