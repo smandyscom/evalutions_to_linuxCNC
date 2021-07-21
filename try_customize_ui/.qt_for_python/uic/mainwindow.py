@@ -261,7 +261,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -269,8 +269,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_TASK_STATE.setText(_translate("MainWindow", "TextLabel"))
         self.label_TASK_MODE.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton_UNLLOCK.setText(_translate("MainWindow", "UNLOCK"))
-        self.pushButton_SRV_ON.setText(_translate("MainWindow", "SERVO_ON"))
+        self.pushButton_UNLLOCK.setText(_translate("MainWindow", "ESTOP_OFF"))
+        self.pushButton_SRV_ON.setText(_translate("MainWindow", "ENABLE"))
         self.label_12.setText(_translate("MainWindow", "POINTS_TABLE"))
         self.pushButton_TEACH.setText(_translate("MainWindow", "TEACH"))
         self.pushButton_REPLAY.setText(_translate("MainWindow", "REPLAY"))

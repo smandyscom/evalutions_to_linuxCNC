@@ -20,7 +20,7 @@ from random import random
 cwd = getcwd()
 
 from mainwindow import Ui_MainWindow
-from controller import Controller, JOG_STOP, JOG_CONTINUOUS, JOG_INCREMENT
+from controller import Controller, JOG_STOP, JOG_CONTINUOUS, JOG_INCREMENT,TaskState
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None) -> None:
@@ -64,8 +64,8 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_TEACH.clicked.connect(self._controller.onTeachButtonClicked)
         self.pushButton_REPLAY.clicked.connect(self._controller.onReplayButtonClicked)
 
-        """ self.pushButton_SRV_ON.clicked.connect(self._controller)
-        self.pushButton_UNLLOCK.clicked.connect(self._controller) """
+        self.pushButton_SRV_ON.toggled.connect(self._controller.onEnabledCommand)
+        self.pushButton_UNLLOCK.clicked.connect(self._controller.onESTOPCommand)
 
         self.pushButton_GO.clicked.connect(self.onDirectGoClicked) #TODO, when to enable lineEdit to be changed?
         
@@ -76,6 +76,10 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self._controller.updateNativeStatus['task_mode'].updatePost.connect(lambda x: self.label_TASK_MODE.setText(str(x)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : self.label_TASK_STATE.setText(str(x)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_UNLLOCK.setChecked(x==TaskState.STATE_ESTOP)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setChecked(x==TaskState.STATE_ON)))
+        self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setEnabled(x>=TaskState.STATE_ESTOP_RESET)))
+
 
         the_list = self.findChildren(QPushButton)
         for excepts in [self.pushButton_SRV_ON,self.pushButton_UNLLOCK,self.pushButton_JOG_X_H,self.pushButton_JOG_Y_H,self.pushButton_JOG_Z_H,self.pushButton_TEACH]:

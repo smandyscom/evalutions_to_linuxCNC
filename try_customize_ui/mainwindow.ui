@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -48,14 +48,14 @@
               <item>
                <widget class="QPushButton" name="pushButton_UNLLOCK">
                 <property name="text">
-                 <string>UNLOCK</string>
+                 <string>ESTOP_OFF</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_SRV_ON">
                 <property name="text">
-                 <string>SERVO_ON</string>
+                 <string>ENABLE</string>
                 </property>
                </widget>
               </item>

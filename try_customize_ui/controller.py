@@ -6,10 +6,17 @@ from random import random
 import pointtable
 from hardwaregate import HardwardGate
 
+from enum import Enum
 
 JOG_STOP = 0
 JOG_CONTINUOUS = 1
 JOG_INCREMENT = 2
+
+class TaskState(Enum):
+    STATE_ESTOP = 1,
+    STATE_ESTOP_RESET = 2,
+    STATE_ON = 3,
+    STATE_OFF = 4
 
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(object)
@@ -132,11 +139,17 @@ class Controller(QObject):
         self._hardware_gate.linuxcnc_write_command('home',_joint)
         pass
 
-    """ def onESTOPCommand(self):
+    @pyqtSlot(bool)
+    def onESTOPCommand(self,checked):
+        _next_state = TaskState.STATE_ESTOP if checked else TaskState.STATE_ESTOP_RESET
+        self._hardware_gate.linuxcnc_write_command('state',_next_state)
         pass
 
-    def onAllEnabledCommand(self):
-        pass """
+    @pyqtSlot(bool)
+    def onEnabledCommand(self,checked):
+        _next_state = TaskState.STATE_ON if checked else TaskState.STATE_OFF
+        self._hardware_gate.linuxcnc_write_command('state',_next_state)
+        pass
 
     def _ismdiok(self):
         return bool(self._native_status_dict['estop']) and bool(self._native_status_dict['enabled']) and (len(self._native_status_dict['homed']) == self._native_status_dict['joints']) and self._native_status_dict['interp_state']==0    
