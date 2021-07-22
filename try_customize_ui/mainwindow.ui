@@ -50,12 +50,21 @@
                 <property name="text">
                  <string>ESTOP_OFF</string>
                 </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_SRV_ON">
                 <property name="text">
                  <string>ENABLE</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
