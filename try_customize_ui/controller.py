@@ -139,15 +139,21 @@ class Controller(QObject):
         self._hardware_gate.linuxcnc_write_command('home',_joint)
         pass
 
-    @pyqtSlot(bool)
-    def onESTOPCommand(self,checked):
-        _next_state = TaskState.STATE_ESTOP.value if checked else TaskState.STATE_ESTOP_RESET.value
-        self._hardware_gate.linuxcnc_write_command('state',_next_state)
+    @pyqtSlot()
+    def onESTOPCommand(self):
+        _current_state = self._native_status_dict['task_state']
+        if _current_state>=TaskState.STATE_ESTOP_RESET.value :
+            self._hardware_gate.linuxcnc_write_command('state',TaskState.STATE_ESTOP.value)
+        elif _current_state==TaskState.STATE_ESTOP.value:
+            self._hardware_gate.linuxcnc_write_command('state',TaskState.STATE_ESTOP_RESET.value)
+
         pass
 
-    @pyqtSlot(bool)
-    def onEnabledCommand(self,checked):
-        _next_state = TaskState.STATE_ON.value if checked else TaskState.STATE_OFF.value
+    #flip
+    @pyqtSlot()
+    def onEnabledCommand(self):
+        _current_state = self._native_status_dict['task_state']
+        _next_state = TaskState.STATE_ON.value if _current_state==TaskState.STATE_OFF.value else TaskState.STATE_OFF.value
         self._hardware_gate.linuxcnc_write_command('state',_next_state)
         pass
 

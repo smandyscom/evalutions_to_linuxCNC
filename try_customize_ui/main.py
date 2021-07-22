@@ -64,7 +64,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_TEACH.clicked.connect(self._controller.onTeachButtonClicked)
         self.pushButton_REPLAY.clicked.connect(self._controller.onReplayButtonClicked)
 
-        self.pushButton_SRV_ON.toggled.connect(self._controller.onEnabledCommand)
+        self.pushButton_SRV_ON.clicked.connect(self._controller.onEnabledCommand)
         self.pushButton_UNLLOCK.clicked.connect(self._controller.onESTOPCommand)
 
         self.pushButton_GO.clicked.connect(self.onDirectGoClicked) #TODO, when to enable lineEdit to be changed?
