@@ -159,5 +159,6 @@ class Controller(QObject):
         pass
 
     def _ismdiok(self):
-        _homed = [x for x in self._native_status_dict['homed'] if x==1]
-        return bool(self._native_status_dict['estop']) and bool(self._native_status_dict['enabled']) and (len(_homed) == self._native_status_dict['joints']) and self._native_status_dict['interp_state']==0    
+        ''' _homed = [x for x in self._native_status_dict['homed'] if x==1]
+        return bool(self._native_status_dict['estop']) and bool(self._native_status_dict['enabled']) and (len(_homed) == self._native_status_dict['joints']) and self._native_status_dict['interp_state']>0    '''
+        return True
