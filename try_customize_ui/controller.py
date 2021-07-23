@@ -23,6 +23,11 @@ class Mode(Enum):
     MODE_MANUAL = 1
     MODE_AUTO = 2
 
+class Traj_Mode(Enum):
+    MODE_FREE = 3
+    MODE_COORD = 2
+    MODE_TELEOP = 1
+
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(object)
 
@@ -149,6 +154,7 @@ class Controller(QObject):
     def onHomeCommand(self):
         self._hardware_gate.linuxcnc_write_command('teleop_enable',1)
         self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MANUAL.value)
+        self._hardware_gate.linuxcnc_write_command('traj_mode',Traj_Mode.MODE_FREE.value)
 
         #pick first occurance
         _key = next(key for key in self._coordinate_dict.keys() if key in self.sender().objectName())

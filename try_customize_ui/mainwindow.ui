@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>712</height>
+    <width>495</width>
+    <height>729</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,23 +32,55 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
-               <widget class="QLabel" name="label_TASK_STATE">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_TASK_MODE">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_TASK_MODE">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="label_TASK_STATE">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>TASK_MODE</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>TASK_STATE</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLabel" name="label_MOTION_MODE">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_17">
+                  <property name="text">
+                   <string>MOTION_MODE</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_UNLLOCK">
                 <property name="text">
-                 <string>ESTOP_OFF</string>
+                 <string>ESTOP</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -285,6 +317,9 @@
             </item>
             <item>
              <widget class="QSlider" name="horizontalSlider_FEEDRATE">
+              <property name="value">
+               <number>50</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -480,7 +515,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>430</width>
+     <width>495</width>
      <height>21</height>
     </rect>
    </property>

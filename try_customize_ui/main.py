@@ -77,8 +77,10 @@ class Window(QMainWindow, Ui_MainWindow):
         #name_value_pair = TaskState.STATE_ESTOP 
         # call enum would return a pair with name,value
 
+        self._controller.updateNativeStatus['motion_mode'].updatePost.connect(lambda x : self.label_MOTION_MODE.setText(str(x)))
         self._controller.updateNativeStatus['task_mode'].updatePost.connect(lambda x: self.label_TASK_MODE.setText(str(x)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : self.label_TASK_STATE.setText(str(x)))
+        
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_UNLLOCK.setChecked(x==TaskState.STATE_ESTOP.value)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setChecked(x==TaskState.STATE_ON.value)))
         self._controller.updateNativeStatus['task_state'].updatePost.connect(lambda x : (self.pushButton_SRV_ON.setEnabled(x>=TaskState.STATE_ESTOP_RESET.value)))
@@ -162,7 +164,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def onJogButtonReleased(self):
         if self.comboBox_MODE_SEL.currentData()[0] == JOG_INCREMENT :
             return 
-            
+
         _selected_joint = self._dict_join_and_direction[self.sender()][0]
         self._controller.onJogCommand(JOG_STOP,_selected_joint)
         pass
