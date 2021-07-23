@@ -19,7 +19,7 @@ class TaskState(Enum):
     STATE_OFF = 4
 
 class Mode(Enum):
-    MODE_MDI = 0
+    MODE_MDI = 3
     MODE_MANUAL = 1
     MODE_AUTO = 2
 
@@ -125,7 +125,7 @@ class Controller(QObject):
         """ def ok_for_mdi():
         s.poll()
             return not s.estop and s.enabled and (s.homed.count(1) == s.joints) and (s.interp_state == linuxcnc.INTERP_IDLE) """
-        self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MDI)
+        self._hardware_gate.linuxcnc_write_command('mode',int(Mode.MODE_MDI.value))
 
         if self._ismdiok():
             mdi_command = 'G00 X{} Y{} Z{}'.format(*command_pos)
@@ -148,8 +148,8 @@ class Controller(QObject):
     @pyqtSlot()
     def onHomeCommand(self):
         self._hardware_gate.linuxcnc_write_command('teleop_enable',1)
-        self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MANUAL)
-        
+        self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MANUAL.value)
+
         #pick first occurance
         _key = next(key for key in self._coordinate_dict.keys() if key in self.sender().objectName())
         _joint = self._coordinate_dict[_key]
