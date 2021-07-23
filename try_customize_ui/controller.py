@@ -152,9 +152,9 @@ class Controller(QObject):
 
     @pyqtSlot()
     def onHomeCommand(self):
-        self._hardware_gate.linuxcnc_write_command('teleop_enable',1)
-        self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MANUAL.value)
-        self._hardware_gate.linuxcnc_write_command('traj_mode',Traj_Mode.MODE_FREE.value)
+        self._hardware_gate.linuxcnc_write_command('teleop_enable',0)
+        #self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MANUAL.value)
+        #self._hardware_gate.linuxcnc_write_command('traj_mode',Traj_Mode.MODE_TELEOP.value)
 
         #pick first occurance
         _key = next(key for key in self._coordinate_dict.keys() if key in self.sender().objectName())
