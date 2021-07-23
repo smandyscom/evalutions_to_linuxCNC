@@ -128,7 +128,13 @@ class Controller(QObject):
 
     @pyqtSlot(int,int,float,float)
     def onJogCommand(self,mode,joint,velocity=0,distance=0):
-        self._hardware_gate.linuxcnc_write_command('jog',mode,True,joint,velocity,distance)
+        _args = () #default empty tuple 
+        if mode == JOG_CONTINUOUS :
+            _args = (velocity,)
+        elif mode == JOG_INCREMENT :
+            _args = (velocity,distance)
+
+        self._hardware_gate.linuxcnc_write_command('jog',mode,True,joint,*_args)
         pass
 
     @pyqtSlot()

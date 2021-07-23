@@ -160,6 +160,9 @@ class Window(QMainWindow, Ui_MainWindow):
     #The continuoues mode - Stop
     @pyqtSlot()
     def onJogButtonReleased(self):
+        if self.comboBox_MODE_SEL.currentData()[0] == JOG_INCREMENT :
+            return 
+            
         _selected_joint = self._dict_join_and_direction[self.sender()][0]
         self._controller.onJogCommand(JOG_STOP,_selected_joint)
         pass
