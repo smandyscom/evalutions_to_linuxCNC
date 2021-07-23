@@ -135,8 +135,8 @@ class Window(QMainWindow, Ui_MainWindow):
         _selected_direction = self._dict_join_and_direction[self.sender()][1]
 
         _selected_velocity = self.horizontalSlider_FEEDRATE.value()
-        _velocity = _selected_velocity * _selected_direction #choosed by sender
-        _selected_distance = self.comboBox_MODE_SEL()[1]
+        _selected_velocity *= _selected_direction #choosed by sender
+        _selected_distance = self.comboBox_MODE_SEL.currentData()[1]
 
         #raise JOG command - incremental
         self._controller.onJogCommand(JOG_INCREMENT, _selected_joint,_selected_velocity,_selected_distance)
@@ -152,7 +152,7 @@ class Window(QMainWindow, Ui_MainWindow):
         _selected_direction = self._dict_join_and_direction[self.sender()][1]
 
         _selected_velocity = self.horizontalSlider_FEEDRATE.value()
-        _velocity = _selected_velocity * _selected_direction #choosed by sender
+        _selected_velocity *= _selected_direction #choosed by sender
         #raise JOG command - incremental
         self._controller.onJogCommand(JOG_CONTINUOUS,_selected_joint,_selected_velocity)
         pass

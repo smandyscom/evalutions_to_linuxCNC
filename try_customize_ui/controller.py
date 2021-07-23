@@ -18,6 +18,11 @@ class TaskState(Enum):
     STATE_ON = 3
     STATE_OFF = 4
 
+class Mode(Enum):
+    MODE_MDI = 0
+    MODE_MANUAL = 1
+    MODE_AUTO = 2
+
 class SignalCarrier(QObject):
     updatePost = pyqtSignal(object)
 
@@ -120,6 +125,7 @@ class Controller(QObject):
         """ def ok_for_mdi():
         s.poll()
             return not s.estop and s.enabled and (s.homed.count(1) == s.joints) and (s.interp_state == linuxcnc.INTERP_IDLE) """
+        self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MDI)
 
         if self._ismdiok():
             mdi_command = 'G00 X{} Y{} Z{}'.format(*command_pos)
@@ -128,6 +134,8 @@ class Controller(QObject):
 
     @pyqtSlot(int,int,float,float)
     def onJogCommand(self,mode,joint,velocity=0,distance=0):
+        self._hardware_gate.linuxcnc_write_command('teleop_enable',0)
+
         _args = () #default empty tuple 
         if mode == JOG_CONTINUOUS :
             _args = (velocity,)
@@ -139,6 +147,9 @@ class Controller(QObject):
 
     @pyqtSlot()
     def onHomeCommand(self):
+        self._hardware_gate.linuxcnc_write_command('teleop_enable',1)
+        self._hardware_gate.linuxcnc_write_command('mode',Mode.MODE_MANUAL)
+        
         #pick first occurance
         _key = next(key for key in self._coordinate_dict.keys() if key in self.sender().objectName())
         _joint = self._coordinate_dict[_key]
