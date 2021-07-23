@@ -169,7 +169,7 @@
                    <enum>QFrame::Box</enum>
                   </property>
                   <property name="text">
-                   <string>Z</string>
+                   <string>Y</string>
                   </property>
                   <property name="textFormat">
                    <enum>Qt::AutoText</enum>
@@ -195,7 +195,7 @@
                    <enum>QFrame::Box</enum>
                   </property>
                   <property name="text">
-                   <string>Y</string>
+                   <string>Z</string>
                   </property>
                   <property name="textFormat">
                    <enum>Qt::AutoText</enum>
