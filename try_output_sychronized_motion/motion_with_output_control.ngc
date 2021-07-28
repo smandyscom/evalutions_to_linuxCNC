@@ -1,0 +1,22 @@
+
+
+
+G0 X0 Y0 (move to start position)
+#1 = 0 (assign parameter #1 the value of 0)
+F50 (set a feed rate)
+
+M0 (Pause)
+G64 (Turn on blending mode)
+M64 P3 (trigger the HAL-scope, motion.digital-out-00)
+o101 while [#1 LT 10]
+    G00 G91 X10 M62 P0
+    G00 G91 X10 M63 P0 (incremental on-off DO)
+    (M65 P0)
+    (G4 P0.1)
+    #1 = [#1+1] (increment the test counter)
+o101 endwhile
+
+M65 P3(off the trigger of HAL-scope)
+
+M2 (end program)
+
