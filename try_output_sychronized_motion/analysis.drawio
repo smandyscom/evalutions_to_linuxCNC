@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-14T06:59:42.865Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" etag="iAkDzJU1hmL_X6-yS0-Z" version="14.8.4" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-14T07:00:48.056Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" etag="z2HNTgRitssYfv3BjcY1" version="14.8.4" type="github">
   <diagram id="8O7noDCw7eFGGS8ApLBq" name="Page-1">
     <mxGraphModel dx="2249" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -19,11 +19,11 @@
             <mxPoint x="230" y="90" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="72Am2vbFL40teB_BgCZg-4" value="速度不連續區段，需要避免在此段出膠&lt;br&gt;需要使用者預先給定距離&lt;br&gt;或系統自動計算；根據預計的加速距離" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="230" y="45" width="220" height="50" as="geometry" />
+        <mxCell id="72Am2vbFL40teB_BgCZg-4" value="(參數 - 前置距離)&lt;br&gt;速度不連續區段，需要避免在此段出膠&lt;br&gt;需要使用者預先給定距離&lt;br&gt;或系統自動計算；根據預計的加速距離" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="230" y="40" width="220" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="72Am2vbFL40teB_BgCZg-5" value="點膠起點；需要使用者給定" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#333333;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="390" y="290" width="160" height="20" as="geometry" />
+        <mxCell id="72Am2vbFL40teB_BgCZg-5" value="(參數 - 點膠起點)&lt;br&gt;點膠起點；需要使用者給定" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#333333;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="390" y="285" width="160" height="30" as="geometry" />
         </mxCell>
         <mxCell id="72Am2vbFL40teB_BgCZg-6" value="" style="endArrow=none;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -37,8 +37,8 @@
             <mxPoint x="520" y="340" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="72Am2vbFL40teB_BgCZg-8" value="出膠間距" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="520" y="490" width="60" height="20" as="geometry" />
+        <mxCell id="72Am2vbFL40teB_BgCZg-8" value="(參數 - 出膠間距)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="520" y="490" width="110" height="20" as="geometry" />
         </mxCell>
         <mxCell id="72Am2vbFL40teB_BgCZg-9" value="" style="endArrow=none;html=1;strokeColor=#d6b656;fillColor=#fff2cc;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -52,8 +52,8 @@
             <mxPoint x="660" y="220" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="72Am2vbFL40teB_BgCZg-11" value="膠閥單次開啟時間，影響單點大小" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="660" y="210" width="200" height="20" as="geometry" />
+        <mxCell id="72Am2vbFL40teB_BgCZg-11" value="(參數 - 膠閥單次開啟時間)&lt;br&gt;影響單點大小" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="660" y="205" width="150" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
