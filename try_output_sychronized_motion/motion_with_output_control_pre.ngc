@@ -6,13 +6,15 @@ G0 X0 Y0 (move to start position)
 F50 (set a feed rate)
 
 M0 (Pause)
-(G64) (Turn on blending mode)
+G64 (Turn on blending mode)
 (G61) (Exact path mode)
-G61.1 (Exact stop mode)
+(G61.1) (Exact stop mode)
 M64 P3 (trigger the HAL-scope, motion.digital-out-00)
-o101 while [#1 LT 10]
-    G00 G91 X10 M62 P0
-    G00 G91 X10 M63 P0 (incremental on-off DO)
+
+G00 G91 X2 (no output, as dummy distance to be acclerating)
+o101 while [#1 LT 100]
+    G00 G91 X1 M62 P0
+    G00 G91 X1 M63 P0 (incremental on-off DO)
     (M65 P0)
     (G4 P0.1)
     #1 = [#1+1] (increment the test counter)
