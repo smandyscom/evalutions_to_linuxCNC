@@ -1,0 +1,39 @@
+# Include your custom HAL commands here
+# This file will not be overwritten when you run stepconf again
+loadrt syncoutputv1 
+net Xjoint-pos-fb joint.0.pos-fb => sim-hardware.Xcurrent-pos syncoutputv1.0.x-current
+net Yjoint-pos-fb joint.1.pos-fb => sim-hardware.Ycurrent-pos syncoutputv1.0.y-current
+addf syncoutputv1.0 servo-thread
+
+# network of 
+# position-wave-based-output
+loadrt hypot 
+loadrt comp count=2 
+loadrt offset count=2 
+loadrt and2 
+loadrt or2 
+
+loadrt streamer depth=100,100 cfg=ff 
+
+addf hypot.0 servo-thread
+addf comp.0 servo-thread
+addf comp.1 servo-thread
+addf offset.0.update-feedback servo-thread
+addf offset.1.update-feedback servo-thread
+addf and2.0 servo-thread
+addf or2.0 servo-thread
+
+addf streamer.0 servo-thread
+
+net STREAMER_OFS0 streamer.0.pin.0 => offset.0.offset
+net STREAMER_OFS1 streamer.0.pin.1 => offset.1.offset
+net Xjoint-pos-fb joint.0.pos-fb => offset.0.fb-in sim-hardware.Xcurrent-pos syncoutputv1.0.x-current
+net Yjoint-pos-fb joint.1.pos-fb => offset.1.fb-in sim-hardware.Ycurrent-pos syncoutputv1.0.y-current
+
+net AND_OR and2.0.out => or2.0.in1
+net COMP_AND comp.1.out => and2.0.in0
+net COMP_OR comp.0.out => or2.0.in0
+net HY_COMP hypot.0.out => comp.0.in0 comp.1.in0
+net OFS_HY_0 offset.0.fb-out => hypot.0.in0
+net OFS_HY_1 offset.1.fb-out => hypot.0.in1
+net OR_OUTPUT or2.0.out => and2.0.in1 streamer.0.clock 

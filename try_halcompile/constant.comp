@@ -1,0 +1,7 @@
+component constant;
+pin out float out;
+param r float value = 1.0;
+function _;
+license "GPL"; // indicates GPL v2 or later
+;;
+FUNCTION(_) { out = value; }

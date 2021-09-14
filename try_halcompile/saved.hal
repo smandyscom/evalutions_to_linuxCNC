@@ -1,0 +1,177 @@
+# components
+loadrt trivkins coordinates=XYZ 
+loadrt motmod base_period_nsec=100000 servo_period_nsec=1000000 num_joints=3 
+#loadrt __base-thread  (not loaded by loadrt, no args saved)
+#loadrt __servo-thread  (not loaded by loadrt, no args saved)
+loadrt sim_parport names=parport.0 
+loadrt stepgen step_type=0,0,0 
+loadrt pwmgen output_type=1 
+loadrt sim_axis_hardware names=sim-hardware 
+loadrt syncoutputv1 
+# pin aliases
+# param aliases
+# signals
+# nets
+net Xjoint-pos-fb joint.0.pos-fb => sim-hardware.Xcurrent-pos syncoutputv1.0.x-current
+net Yjoint-pos-fb joint.1.pos-fb => sim-hardware.Ycurrent-pos syncoutputv1.0.y-current
+net Zjoint-pos-fb joint.2.pos-fb => sim-hardware.Zcurrent-pos
+net adir parport.0.pin-09-out
+net astep parport.0.pin-08-out
+net estop-out iocontrol.0.user-enable-out => iocontrol.0.emc-enable-in parport.0.pin-01-out
+net fake-adir parport.0.pin-09-out-fake
+net fake-all-home sim-hardware.homesw-all
+net fake-all-limit sim-hardware.limitsw-all
+net fake-all-limit-home sim-hardware.limitsw-homesw-all
+net fake-astep parport.0.pin-08-out-fake
+net fake-both-a sim-hardware.Abothsw-out
+net fake-both-home-a sim-hardware.Abothsw-homesw-out
+net fake-both-home-u sim-hardware.Ubothsw-homesw-out
+net fake-both-home-v sim-hardware.Vbothsw-homesw-out
+net fake-both-home-x sim-hardware.Xbothsw-homesw-out
+net fake-both-home-y sim-hardware.Ybothsw-homesw-out
+net fake-both-home-z sim-hardware.Zbothsw-homesw-out
+net fake-both-u sim-hardware.Ubothsw-out
+net fake-both-v sim-hardware.Vbothsw-out
+net fake-both-x sim-hardware.Xbothsw-out
+net fake-both-y sim-hardware.Ybothsw-out
+net fake-both-z sim-hardware.Zbothsw-out
+net fake-estop-out parport.0.pin-01-out-fake
+net fake-home-a sim-hardware.Ahomesw-out
+net fake-home-u sim-hardware.Uhomesw-out
+net fake-home-v sim-hardware.Vhomesw-out
+net fake-home-x sim-hardware.Xhomesw-out
+net fake-home-y sim-hardware.Yhomesw-out
+net fake-home-z sim-hardware.Zhomesw-out
+net fake-max-a sim-hardware.Amaxsw-out
+net fake-max-home-a sim-hardware.Amaxsw-homesw-out
+net fake-max-home-u sim-hardware.Umaxsw-homesw-out
+net fake-max-home-v sim-hardware.Vmaxsw-homesw-out
+net fake-max-home-x sim-hardware.Xmaxsw-homesw-out
+net fake-max-home-y sim-hardware.Ymaxsw-homesw-out
+net fake-max-home-z sim-hardware.Zmaxsw-homesw-out
+net fake-max-u sim-hardware.Umaxsw-out
+net fake-max-v sim-hardware.Vmaxsw-out
+net fake-max-x sim-hardware.Xmaxsw-out
+net fake-max-y sim-hardware.Ymaxsw-out
+net fake-max-z sim-hardware.Zmaxsw-out
+net fake-min-a sim-hardware.Aminsw-out
+net fake-min-home-a sim-hardware.Aminsw-homesw-out
+net fake-min-home-u sim-hardware.Uminsw-homesw-out
+net fake-min-home-v sim-hardware.Vminsw-homesw-out
+net fake-min-home-x sim-hardware.Xminsw-homesw-out
+net fake-min-home-y sim-hardware.Yminsw-homesw-out
+net fake-min-home-z sim-hardware.Zminsw-homesw-out
+net fake-min-u sim-hardware.Uminsw-out
+net fake-min-v sim-hardware.Vminsw-out
+net fake-min-x sim-hardware.Xminsw-out
+net fake-min-y sim-hardware.Yminsw-out
+net fake-min-z sim-hardware.Zminsw-out
+net fake-spindle-cw parport.0.pin-14-out-fake
+net fake-spindle-pwm parport.0.pin-16-out-fake
+net fake-xdir parport.0.pin-03-out-fake
+net fake-xenable parport.0.pin-17-out-fake
+net fake-xstep parport.0.pin-02-out-fake
+net fake-ydir parport.0.pin-05-out-fake
+net fake-ystep parport.0.pin-04-out-fake
+net fake-zdir parport.0.pin-07-out-fake
+net fake-zstep parport.0.pin-06-out-fake
+net spindle-at-speed spindle.0.at-speed
+net spindle-cmd-rpm spindle.0.speed-out => pwmgen.0.value
+net spindle-cmd-rpm-abs spindle.0.speed-out-abs
+net spindle-cmd-rps spindle.0.speed-out-rps
+net spindle-cmd-rps-abs spindle.0.speed-out-rps-abs
+net spindle-cw spindle.0.forward => parport.0.pin-14-out
+net spindle-on spindle.0.on => pwmgen.0.enable
+net spindle-pwm pwmgen.0.pwm => parport.0.pin-16-out
+net tool-change iocontrol.0.tool-change => hal_manualtoolchange.change
+net tool-changed hal_manualtoolchange.changed => iocontrol.0.tool-changed
+net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
+net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+net xdir stepgen.0.dir => parport.0.pin-03-out
+net xenable joint.0.amp-enable-out => parport.0.pin-17-out stepgen.0.enable
+net xpos-cmd joint.0.motor-pos-cmd => stepgen.0.position-cmd
+net xpos-fb stepgen.0.position-fb => joint.0.motor-pos-fb
+net xstep stepgen.0.step => parport.0.pin-02-out
+net ydir stepgen.1.dir => parport.0.pin-05-out
+net yenable joint.1.amp-enable-out => stepgen.1.enable
+net ypos-cmd joint.1.motor-pos-cmd => stepgen.1.position-cmd
+net ypos-fb stepgen.1.position-fb => joint.1.motor-pos-fb
+net ystep stepgen.1.step => parport.0.pin-04-out
+net zdir stepgen.2.dir => parport.0.pin-07-out
+net zenable joint.2.amp-enable-out => stepgen.2.enable
+net zpos-cmd joint.2.motor-pos-cmd => stepgen.2.position-cmd
+net zpos-fb stepgen.2.position-fb => joint.2.motor-pos-fb
+net zstep stepgen.2.step => parport.0.pin-06-out
+# parameter values
+setp base-thread.tmax      1908917
+setp motion-command-handler.tmax       334746
+setp motion-controller.tmax     13051045
+setp parport.0.pin-01-out-invert        FALSE
+setp parport.0.pin-01-out-reset        FALSE
+setp parport.0.pin-02-out-invert        FALSE
+setp parport.0.pin-02-out-reset         TRUE
+setp parport.0.pin-03-out-invert        FALSE
+setp parport.0.pin-03-out-reset        FALSE
+setp parport.0.pin-04-out-invert        FALSE
+setp parport.0.pin-04-out-reset         TRUE
+setp parport.0.pin-05-out-invert        FALSE
+setp parport.0.pin-05-out-reset        FALSE
+setp parport.0.pin-06-out-invert        FALSE
+setp parport.0.pin-06-out-reset         TRUE
+setp parport.0.pin-07-out-invert        FALSE
+setp parport.0.pin-07-out-reset        FALSE
+setp parport.0.pin-08-out-invert        FALSE
+setp parport.0.pin-08-out-reset         TRUE
+setp parport.0.pin-09-out-invert        FALSE
+setp parport.0.pin-09-out-reset        FALSE
+setp parport.0.pin-14-out-invert        FALSE
+setp parport.0.pin-14-out-reset        FALSE
+setp parport.0.pin-16-out-invert        FALSE
+setp parport.0.pin-16-out-reset        FALSE
+setp parport.0.pin-17-out-invert        FALSE
+setp parport.0.pin-17-out-reset        FALSE
+setp parport.0.read.tmax       548156
+setp parport.0.reset.tmax       397335
+setp parport.0.write.tmax       758496
+setp pwmgen.make-pulses.tmax       246783
+setp pwmgen.update.tmax       568678
+setp servo-thread.tmax     13061596
+setp sim-hardware.update.tmax      3897691
+setp stepgen.0.dirhold   0x000186A0
+setp stepgen.0.dirsetup   0x000186A0
+setp stepgen.0.maxaccel        937.5
+setp stepgen.0.maxvel            0
+setp stepgen.0.position-scale           80
+setp stepgen.0.steplen   0x000186A0
+setp stepgen.0.stepspace   0x00000000
+setp stepgen.1.dirhold   0x000186A0
+setp stepgen.1.dirsetup   0x000186A0
+setp stepgen.1.maxaccel        937.5
+setp stepgen.1.maxvel            0
+setp stepgen.1.position-scale           80
+setp stepgen.1.steplen   0x000186A0
+setp stepgen.1.stepspace   0x00000000
+setp stepgen.2.dirhold   0x000186A0
+setp stepgen.2.dirsetup   0x000186A0
+setp stepgen.2.maxaccel        937.5
+setp stepgen.2.maxvel            0
+setp stepgen.2.position-scale           80
+setp stepgen.2.steplen   0x000186A0
+setp stepgen.2.stepspace   0x00000000
+setp stepgen.capture-position.tmax       302197
+setp stepgen.make-pulses.tmax      1907406
+setp stepgen.update-freq.tmax       264607
+setp syncoutputv1.0.tmax       545018
+# realtime thread/function links
+addf stepgen.capture-position servo-thread
+addf sim-hardware.update servo-thread
+addf motion-command-handler servo-thread
+addf motion-controller servo-thread
+addf stepgen.update-freq servo-thread
+addf pwmgen.update servo-thread
+addf syncoutputv1.0 servo-thread
+addf parport.0.read base-thread
+addf stepgen.make-pulses base-thread
+addf pwmgen.make-pulses base-thread
+addf parport.0.write base-thread
+addf parport.0.reset base-thread

@@ -1,0 +1,24 @@
+component syncoutputv1;
+
+pin out bit output;
+
+pin in float x_target;
+pin in float y_target;
+pin in float x_current;
+pin in float y_current;
+
+param r float delta = 0.01;
+
+function _;
+license "smandyscom"; 
+;;
+#include <rtapi_math.h>
+FUNCTION(_){
+    float temp= 0;
+    temp += pow(x_current - x_target,2) ; 
+    temp += pow(y_current - y_target,2) ; 
+    temp = sqrt(temp) ; 
+    output = (temp < delta) ? 1 : 0;
+}
+
+
