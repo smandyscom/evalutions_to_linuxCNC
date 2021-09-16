@@ -10,8 +10,9 @@ addf syncoutputv1.0 servo-thread
 loadrt hypot 
 loadrt comp count=2 
 loadrt offset count=2 
-loadrt and2 
-loadrt or2 
+loadrt and2 count=3
+loadrt or2  count=2
+loadrt not 
 
 loadrt streamer depth=100,100 cfg=ff 
 
@@ -30,10 +31,29 @@ net STREAMER_OFS1 streamer.0.pin.1 => offset.1.offset
 net Xjoint-pos-fb joint.0.pos-fb => offset.0.fb-in sim-hardware.Xcurrent-pos syncoutputv1.0.x-current
 net Yjoint-pos-fb joint.1.pos-fb => offset.1.fb-in sim-hardware.Ycurrent-pos syncoutputv1.0.y-current
 
-net AND_OR and2.0.out => or2.0.in1
+net AND_OR0 and2.0.out => or2.0.in1
 net COMP_AND comp.1.out => and2.0.in0
-net COMP_OR comp.0.out => or2.0.in0
+net COMP_OR0 comp.0.out => or2.0.in0
 net HY_COMP hypot.0.out => comp.0.in0 comp.1.in0
 net OFS_HY_0 offset.0.fb-out => hypot.0.in0
 net OFS_HY_1 offset.1.fb-out => hypot.0.in1
-net OR_OUTPUT or2.0.out => and2.0.in1 streamer.0.clock 
+
+net OR0_OUTPUT or2.0.out => and2.1.in0  
+
+#set streamer triiger as fallen edge
+setp streamer.0.clock-mode 1
+
+#newwork overide
+addf and2.1 servo-thread
+addf and2.2 servo-thread
+
+addf or2.1 servo-thread
+addf not.0 servo-thread
+
+net OR1_OUTPUT or2.1.out streamer.0.clock
+
+net OR1_AND1 or2.1.in0 and2.1.out
+net OR1_ADN2 or2.1.in1 and2.2.out
+
+net NOT_AND1 not.0.out and2.1.in1
+net NOT_AND2 not.0.in and2.2.in1
