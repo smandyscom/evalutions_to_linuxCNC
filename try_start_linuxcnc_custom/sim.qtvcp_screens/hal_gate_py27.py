@@ -1,0 +1,1 @@
+/home/smandyscom/evalutions_to_linuxCNC/try_customize_ui/hal_gate_py27.py

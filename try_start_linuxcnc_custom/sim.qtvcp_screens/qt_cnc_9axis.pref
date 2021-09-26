@@ -1,0 +1,58 @@
+[DIALOG_GEOMETRY]
+ToolChangeDialog-geometry = 480 760 316 121
+
+[DIALOG_OPTIONS]
+toolDialog_play_sound = True
+toolDialog_speak = True
+toolDialog_sound_type = READY
+fileDialog_play_sound = True
+fileDialog_sound_type = READY
+
+[BOOK_KEEPING]
+last_loaded_directory = /home/smandyscom/linuxcnc/nc_files/examples
+style_QSS_Path = DEFAULT
+
+[SCREEN_CONTROL_LAST_SETTING]
+statusadjustmentbar-hi-value = 75
+statusadjustmentbar-low-value = 25
+statusadjustmentbar_2-hi-value = 75
+statusadjustmentbar_2-low-value = 25
+statusadjustmentbar_3-hi-value = 75
+statusadjustmentbar_3-low-value = 25
+statusadjustmentbar_4-hi-value = 75
+statusadjustmentbar_4-low-value = 25
+statusadjustmentbar_5-hi-value = 75
+statusadjustmentbar_5-low-value = 25
+
+[SCREEN_OPTIONS]
+catch_errors = True
+desktop_notify = True
+shutdown_check = True
+sound_player_on = True
+overlay_play_sound = False
+overlay_sound_type = RING
+mainwindow_geometry = 3 60 1027 790
+
+[MCH_MSG_OPTIONS]
+mchnMsg_play_sound = True
+mchnMsg_speak_errors = True
+mchnMsg_sound_type = RING
+
+[USR_MSG_OPTIONS]
+usermsg_play_sound = True
+userMsg_sound_type = RING
+userMsg_use_focusOverlay = True
+
+[SHUTDOWN_OPTIONS]
+shutdown_play_sound = True
+shutdown_alert_sound_type = READY
+shutdown_exit_sound_type = LOGOUT
+shutdown_msg_title = Do you want to Shutdown now?
+shutdown_msg_detail = 
+
+[NOTIFY_OPTIONS]
+notify_start_greeting = True
+notify_start_title = Welcome
+notify_start_detail = This option can be changed in the preference file
+notify_start_timeout = 5
+
