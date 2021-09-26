@@ -42,6 +42,10 @@ net OR0_OUTPUT or2.0.out => and2.1.in0
 
 #set streamer triiger as fallen edge
 setp streamer.0.clock-mode 1
+# tolerance - on
+setp comp.0.in1 0.01
+# width - off
+setp comp.1.in1 0.01
 
 #newwork overide
 addf and2.1 servo-thread
