@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="ScreenOptions" name="screen_options">
+      <property name="fileDialog_option" stdset="0">
+       <bool>true</bool>
+      </property>
+      <widget class="GCodeGraphics" name="gcodegraphics">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>400</width>
+         <height>400</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton">
+       <property name="geometry">
+        <rect>
+         <x>530</x>
+         <y>30</y>
+         <width>44</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>ESTOP</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton_2">
+       <property name="geometry">
+        <rect>
+         <x>530</x>
+         <y>80</y>
+         <width>131</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Machine_On</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="machine_on_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton_3">
+       <property name="geometry">
+        <rect>
+         <x>520</x>
+         <y>150</y>
+         <width>161</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>HOME ALL AXES</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="home_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>-1</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton_4">
+       <property name="geometry">
+        <rect>
+         <x>530</x>
+         <y>210</y>
+         <width>44</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>LOAD</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="load_dialog_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton_5">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>280</y>
+         <width>44</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>RUN</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="run_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton_6">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>350</y>
+         <width>131</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>PAUSE</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="pause_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="ActionButton" name="actionbutton_7">
+       <property name="geometry">
+        <rect>
+         <x>530</x>
+         <y>450</y>
+         <width>44</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>STOP</string>
+       </property>
+       <property name="indicator_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_HAL_pin_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="indicator_status_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="checked_state_text_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="python_command_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="on_color" stdset="0">
+        <color>
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="shape_option" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="off_color" stdset="0">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="indicator_size" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="circle_diameter" stdset="0">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="right_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="top_edge_offset" stdset="0">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="corner_radius" stdset="0">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="height_fraction" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="width_fraction" stdset="0">
+        <double>0.900000000000000</double>
+       </property>
+       <property name="true_state_string" stdset="0">
+        <string>True</string>
+       </property>
+       <property name="false_state_string" stdset="0">
+        <string>False</string>
+       </property>
+       <property name="true_python_cmd_string" stdset="0">
+        <string>print&quot;true command&quot;</string>
+       </property>
+       <property name="false_python_cmd_string" stdset="0">
+        <string>print&quot;false command&quot;</string>
+       </property>
+       <property name="invert_the_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_paused_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_estopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_on_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_idle_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_flood_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mist_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_block_delete_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_optional_stop_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_joint_homed_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_limits_overridden_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_manual_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_mdi_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_auto_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_stopped_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_fwd_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="is_spindle_rev_status" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number_status" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="estop_action" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="abort_action" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="template_label_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="joint_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="incr_imperial_number" stdset="0">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="incr_mm_number" stdset="0">
+        <double>0.025000000000000</double>
+       </property>
+       <property name="incr_angular_number" stdset="0">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="toggle_float_option" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="float_num" stdset="0">
+        <double>0.300000000000000</double>
+       </property>
+       <property name="float_alt_num" stdset="0">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="view_type_string" stdset="0">
+        <string>P</string>
+       </property>
+       <property name="command_text_string" stdset="0">
+        <string/>
+       </property>
+       <property name="ini_mdi_number" stdset="0">
+        <number>0</number>
+       </property>
+       <property name="textTemplate" stdset="0">
+        <string>%1.3f in</string>
+       </property>
+       <property name="alt_textTemplate" stdset="0">
+        <string>%1.2f mm</string>
+       </property>
+      </widget>
+      <widget class="PushButton" name="pushbutton">
+       <property name="geometry">
+        <rect>
+         <x>730</x>
+         <y>250</y>
+         <width>44</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Test</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GCodeGraphics</class>
+   <extends>QWidget</extends>
+   <header>qtvcp.widgets.gcode_graphics</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ScreenOptions</class>
+   <extends>QWidget</extends>
+   <header>qtvcp.widgets.screen_options</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qtvcp.widgets.simple_widgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ActionButton</class>
+   <extends>QPushButton</extends>
+   <header>qtvcp.widgets.action_button</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>test_button()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>766</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>899</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>test_button()</slot>
+ </slots>
+</ui>
