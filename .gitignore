@@ -138,3 +138,6 @@ dmypy.json
 cython_debug/
 *.bak
 .qt_for_python/uic/tester.py
+
+# ods
+.~lock*
